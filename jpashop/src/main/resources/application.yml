@@ -1,0 +1,27 @@
+spring:
+  datasource:
+#    url: jdbc:h2:tcp://localhost/~/jpashop;
+    url: jdbc:mysql://localhost:3306/matching?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&MVCC=TRUE
+#    username: sa
+    username: root
+    password: ssafy
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    driver-class-name: org.h2.Driver
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  jpa:
+    hibernate:
+#      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true;
+        format_sql: true;
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace

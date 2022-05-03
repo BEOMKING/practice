@@ -1,4 +1,4 @@
-package com.study.applicationtest.practice;
+package com.study.applicationtest;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -21,10 +21,10 @@ public class StudyTest2 {
 //        sharedValue = 1;
 //    }
 
-    @org.junit.Test
-    public void junit4_test() {
-
-    }
+//    @org.junit.Test
+//    public void junit4_test() {
+//
+//    }
 
     @Test
     @DisplayName("Value 테스트")

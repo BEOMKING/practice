@@ -1,4 +1,4 @@
-package com.study.applicationtest.practice;
+package com.study.applicationtest;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -11,7 +11,7 @@ public class FindSlowTestExtension implements BeforeTestExecutionCallback, After
     private static final long THRESHOLD = 1000L;
 
     @Override
-    public void afterTestExecution(ExtensionContext context) throws Exception {
+    public void afterTestExecution(ExtensionContext context) {
         String testMethodName = context.getRequiredTestMethod().getName();
         Store store = getStore(context);
         long startTime = store.remove("START_TIME", long.class);
@@ -22,7 +22,7 @@ public class FindSlowTestExtension implements BeforeTestExecutionCallback, After
     }
 
     @Override
-    public void beforeTestExecution(ExtensionContext context) throws Exception {
+    public void beforeTestExecution(ExtensionContext context) {
         Store store = getStore(context);
         store.put("START_TIME", System.currentTimeMillis());
     }

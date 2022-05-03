@@ -1,4 +1,4 @@
-package com.study.applicationtest.practice;
+package com.study.applicationtest;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import com.study.applicationtest.domain.Study;
+import com.study.applicationtest.domain.StudyStatus;
 import java.time.Duration;
 import java.util.function.Supplier;
 import org.assertj.core.api.Assertions;
@@ -58,12 +60,14 @@ public class StudyTest {
         System.out.println(message);
 
 
-    }@DisplayName("파라미터 테스트")
-    @ParameterizedTest(name = "{index} {displayName} message={0}")
-    @ValueSource(ints = {1, 2})
-    void csv_test(@ConvertWith(StudyConverter.class) Study study) {
-        System.out.println(study.getLimit());
     }
+
+//    @DisplayName("파라미터 테스트")
+//    @ParameterizedTest(name = "{index} {displayName} message={0}")
+//    @ValueSource(ints = {1, 2})
+//    void csv_test(@ConvertWith(StudyConverter.class) Study study) {
+//        System.out.println(study.getLimit());
+//    }
 
     static class StudyConverter extends SimpleArgumentConverter {
 
@@ -117,8 +121,8 @@ public class StudyTest {
     void created_study_status_check_assertAll() {
         Study study = new Study(-10);
         assertAll(
-            () -> assertEquals(StudyStatus.DRAFT, study.getStatus(), "스터디를 처음 만들면 상태값이 " +  StudyStatus.DRAFT + "여야 한다."),
-            () -> assertTrue(study.getLimit() > 0, "스터디 제한 인원은 0보다 커야 한다.")
+            () -> assertEquals(StudyStatus.DRAFT, study.getStatus(), "스터디를 처음 만들면 상태값이 " +  StudyStatus.DRAFT + "여야 한다.")
+//            () -> assertTrue(study.getLimit() > 0, "스터디 제한 인원은 0보다 커야 한다.")
         );
     }
 

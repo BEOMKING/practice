@@ -1,4 +1,4 @@
-package com.study.applicationtest;
+package com.study.applicationtest.solution;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class JUnitPracticeProblems {
+public class JUnitPracticeSolution {
 
     // 1 @DisplayName()
     // 2 3

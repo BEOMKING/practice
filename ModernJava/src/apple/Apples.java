@@ -10,7 +10,7 @@ public class Apples {
         this.apples = apples;
     }
 
-    public static List<Apple> filterApples(List<Apple> apples, ApplePredicate p) {
+    public static List<Apple> filter(List<Apple> apples, ApplePredicate p) {
         List<Apple> result = new ArrayList<>();
 
         for (Apple apple : apples) {

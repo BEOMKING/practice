@@ -13,5 +13,11 @@ public class Main {
 
         Apples appless = new Apples(apples);
         appless.prettyPrintApple(new PrettyBigApple());
+
+        List<Apple> greenApples = Apples.filter(apples, apple -> { return apple.isGreen(); });
+
+        Runnable runnable = () -> { System.out.println("df"); };
     }
+
+
 }

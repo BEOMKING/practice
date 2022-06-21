@@ -10,17 +10,17 @@ public class Apples {
         this.apples = apples;
     }
 
-    public static List<Apple> filter(List<Apple> apples, ApplePredicate p) {
-        List<Apple> result = new ArrayList<>();
-
-        for (Apple apple : apples) {
-            if (p.test(apple)) {
-                result.add(apple);
-            }
-        }
-
-        return result;
-    }
+//    public static List<Apple> filter(List<Apple> apples, ApplePredicate p) {
+//        List<Apple> result = new ArrayList<>();
+//
+//        for (Apple apple : apples) {
+//            if (p.test(apple)) {
+//                result.add(apple);
+//            }
+//        }
+//
+//        return result;
+//    }
 
     public static <T> List<T> filter(List<T> list, Predicate<T> p) {
         List<T> result = new ArrayList<>();

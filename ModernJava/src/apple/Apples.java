@@ -22,6 +22,18 @@ public class Apples {
         return result;
     }
 
+    public static <T> List<T> filter(List<T> list, Predicate<T> p) {
+        List<T> result = new ArrayList<>();
+
+        for (T e : list) {
+            if (p.test(e)) {
+                result.add(e);
+            }
+        }
+
+        return result;
+    }
+
     public void prettyPrintApple(PrettyPredicate p) {
         for (Apple apple : apples) {
             System.out.println(p.isPretty(apple));

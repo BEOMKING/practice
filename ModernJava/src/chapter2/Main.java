@@ -1,8 +1,9 @@
-import apple.*;
+package chapter2;
+
+import chapter2.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class Main {
 

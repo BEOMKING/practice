@@ -1,4 +1,4 @@
-package apple;
+package chapter2;
 
 public class PrettyBigApple implements PrettyPredicate {
     @Override

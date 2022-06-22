@@ -1,4 +1,4 @@
-package apple;
+package chapter2;
 
 public class AppleHeavyWeightPredicate implements ApplePredicate {
     @Override

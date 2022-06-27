@@ -1,9 +1,11 @@
 package chapter5;
 
+import chapter4.Dish;
+
 import java.util.Arrays;
 import java.util.List;
 
-import static chapter5.Dish.menu;
+import static chapter4.Dish.menu;
 
 public class SearchingAndMatching {
 

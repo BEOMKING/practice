@@ -1,9 +1,10 @@
-package chapter5;
+package chapter4;
 
-import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Dish {
 
@@ -77,9 +78,26 @@ public class Dish {
         menu.forEach(dish -> System.out.println(dish.getName()));
 //        menu.forEach(System.out::println);
     }
+    public static void threeHighCaloricDishNames() {
+        List<String> threeHighCaloricDishNames = menu.stream()
+                .sorted(Comparator.comparing(Dish::getCalories).reversed())
+                .map(Dish::getName)
+                .limit(3)
+                .collect(Collectors.toList());
 
-    public static void main(String[] args) throws IOException {
-        forEach();
+        System.out.println(threeHighCaloricDishNames);
+    }
+
+    public static void streamNotRepeatable() {
+        List<String> list = Arrays.asList("박", "범", "진");
+        Stream<String> streams = list.stream();
+        streams.forEach(System.out::print);
+        streams.forEach(System.out::print);
+    }
+
+    public static void main(String[] args) {
+        threeHighCaloricDishNames();
+        streamNotRepeatable();
     }
 
 }

@@ -1,10 +1,12 @@
 package chapter5;
 
+import chapter4.Dish;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static chapter5.Dish.specialMenu;
+import static chapter4.Dish.specialMenu;
 
 public class Filtering {
 
@@ -18,17 +20,19 @@ public class Filtering {
     }
 
     public static void takeWhile() {
+        // Java 9
         // 조건을 충족하지 않을 때까지 가져가고 나머지를 버림
-        List<Dish> takeWhileMenus = specialMenu.stream()
-                .takeWhile(d -> d.getCalories() < 320)
-                .collect(Collectors.toList());
+//        List<Dish> takeWhileMenus = specialMenu.stream()
+//                .takeWhile(d -> d.getCalories() < 320)
+//                .collect(Collectors.toList());
     }
 
     public static void dropWhile() {
         // 조건을 충족하지 않을 때까지 버리고 나머지를 가져감
-        List<Dish> dropWhileMenus = specialMenu.stream()
-                .dropWhile(d -> d.getCalories() < 320)
-                .collect(Collectors.toList());
+        // Java 9
+//        List<Dish> dropWhileMenus = specialMenu.stream()
+//                .dropWhile(d -> d.getCalories() < 320)
+//                .collect(Collectors.toList());
     }
 
     public static void limit() {

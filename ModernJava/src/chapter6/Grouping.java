@@ -27,7 +27,21 @@ public class Grouping {
         System.out.println("dishesByCaloricLevel = " + dishesByCaloricLevel);
     }
 
+    public static void groupingByCalorieBiggerThen500() {
+//        Map<Dish.Type, List<Dish>> dishesByType = menu.stream()
+//                .collect(Collectors.groupingBy(Dish::getType, Collectors.filtering(dish -> dish.getCalories() > 500, Collectors.toList())));
+//        System.out.println(dishesByType);
+    }
+
+    public static void groupingByTypeMappingName() {
+        Map<Dish.Type, List<String>> dishes = menu.stream()
+                .collect(Collectors.groupingBy(Dish::getType, Collectors.mapping(Dish::getName, Collectors.toList())));
+        System.out.println(dishes);
+    }
+
     public static void main(String[] args) {
         customGrouping();
+        groupingByCalorieBiggerThen500();
+        groupingByTypeMappingName();
     }
 }

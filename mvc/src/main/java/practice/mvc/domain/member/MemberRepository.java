@@ -16,6 +16,13 @@ public class MemberRepository {
         return instance;
     }
 
+    public Member save(Member member) {
+        //
+        member.setId(++sequence);
+        store.put(member.getId(), member);
+        return member;
+    }
+
     public Member findById(long id) {
         return store.get(id);
     }

@@ -139,7 +139,8 @@ SELECT company,
            WHEN -1 THEN '-' END AS var
 FROM sales;
 
-EXPLAIN SELECT company,
+EXPLAIN
+SELECT company,
        year,
        sales,
        CASE SIGN(sales - (SELECT MAX(sales)
@@ -329,3 +330,94 @@ FROM postal_history2 AS ph1,
 WHERE ph1.name = 'A'
   AND ph1.lft = ph2.lft
   AND ph1.rgt = ph2.rgt;
+
+-- 18강
+
+CREATE TABLE Employees
+(
+    emp_id   CHAR(9),
+    emp_name VARCHAR(32),
+    dept_id  CHAR(3),
+    CONSTRAINT pk_emp PRIMARY KEY (emp_id)
+);
+
+INSERT INTO Employees
+VALUES ('001', '하린', 10),
+       ('002', '한미루', 11),
+       ('003', '사라', 11),
+       ('004', '중민', 12),
+       ('005', '웅식', 12),
+       ('006', '주아', 12),
+       ('007', '희주', 13),
+       ('008', '혜요', 13),
+       ('009', '석호', 14),
+       ('010', '종혁', 15),
+       ('011', '렬', 16);
+
+CREATE TABLE Departments
+(
+    dept_id   CHAR(3),
+    dept_name VARCHAR(32),
+    CONSTRAINT pk_dept PRIMARY KEY (dept_id)
+);
+
+INSERT INTO Departments
+VALUES (10, '인사'),
+       (11, '개발'),
+       (12, '영업'),
+       (13, '기획'),
+       (14, '홍보'),
+       (15, '총무'),
+       (16, '경영');
+
+-- Employees
+SELECT *
+FROM Employees;
+
+-- Departments
+SELECT *
+FROM Departments;
+
+-- Cross Join
+SELECT *
+FROM Employees
+         CROSS JOIN Departments;
+
+-- Inner Join
+EXPLAIN
+SELECT e.emp_id, e.emp_name, d.dept_id, d.dept_name
+FROM Employees e
+         INNER JOIN Departments d ON e.dept_id = d.dept_id;
+
+-- Outer Join
+SELECT *
+FROM Departments
+         LEFT OUTER JOIN Employees ON Departments.dept_id = Employees.dept_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

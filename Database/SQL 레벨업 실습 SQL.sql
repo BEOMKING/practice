@@ -394,6 +394,15 @@ SELECT *
 FROM Departments
          LEFT OUTER JOIN Employees ON Departments.dept_id = Employees.dept_id;
 
+ANALYZE Departments;
+ANALYZE Employees;
+
+EXPLAIN SELECT dept_id, dept_name
+FROM Departments D
+WHERE NOT EXISTS (SELECT *
+              FROM Employees E
+              WHERE D.dept_id = E.dept_id);
+
 
 
 

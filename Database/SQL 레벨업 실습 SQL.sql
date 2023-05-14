@@ -1,4 +1,5 @@
--- 12강
+-- 4장 집약과 자르기
+--- 12강 집약
 create table price_by_age
 (
     product_id varchar(32) not null,
@@ -46,7 +47,7 @@ FROM hotel_rooms
 GROUP BY room_nbr
 HAVING SUM(end_date - start_date) >= 10;
 
--- 13강
+--- 13강 자르기
 CREATE TABLE persons
 (
     name   varchar,
@@ -102,7 +103,8 @@ SELECT name,
            ORDER BY age DESC)
 FROM persons;
 
--- 16강
+-- 5장 반복문
+--- 16강 SQL에서는 반복을 어떻게 표현할까?
 CREATE TABLE sales
 (
     company VARCHAR,
@@ -331,8 +333,8 @@ WHERE ph1.name = 'A'
   AND ph1.lft = ph2.lft
   AND ph1.rgt = ph2.rgt;
 
--- 18강
-
+-- 6장 결합
+--- 18강 기능적 관점으로 구분하는 결합의 종류
 CREATE TABLE Employees
 (
     emp_id   CHAR(9),
@@ -533,3 +535,99 @@ FROM companies c
       WHERE main_flg = 'Y'
       GROUP BY company_code) AS s
      ON c.company_code = s.company_code;
+
+-- 8장 SQL의 순서
+--- 23강 레코드에 순서 붙이기
+CREATE TABLE weights
+(
+    student_id CHAR(5),
+    weight     INTEGER,
+    CONSTRAINT pk_weights PRIMARY KEY (student_id)
+);
+
+INSERT INTO weights
+VALUES ('A100', 50),
+       ('A101', 55),
+       ('A124', 55),
+       ('B343', 60),
+       ('B346', 72),
+       ('C563', 72),
+       ('C345', 72);
+
+SELECT student_id,
+       weight,
+       ROW_NUMBER() OVER (ORDER BY student_id) AS row_num
+FROM weights;
+
+SELECT student_id,
+       weight,
+       (SELECT COUNT(*)
+        FROM weights w2
+        WHERE w2.student_id <= w1.student_id) AS row_num
+FROM weights w1;
+
+CREATE TABLE weight2
+(
+    class      INTEGER,
+    student_id CHAR(5),
+    weight     INTEGER,
+    CONSTRAINT pk_weight2 PRIMARY KEY (class, student_id)
+);
+
+INSERT INTO weight2
+VALUES (1, '100', 50),
+       (1, '101', 55),
+       (1, '102', 56),
+       (2, '100', 60),
+       (2, '101', 72),
+       (2, '102', 73),
+       (2, '103', 73);
+
+SELECT class,
+       student_id,
+       weight,
+       ROW_NUMBER() OVER (ORDER BY class, student_id) AS row_num
+FROM weight2;
+
+SELECT class,
+       student_id,
+       (SELECT COUNT(*)
+        FROM weight2 w2
+        WHERE (w2.class, w2.student_id) <= (w1.class, w1.student_id)) AS row_num
+FROM weight2 w1;
+
+SELECT class,
+       student_id,
+       ROW_NUMBER() OVER (PARTITION BY class ORDER BY student_id) AS row_num
+FROM weight2;
+
+CREATE TABLE weight3
+(
+    class      INTEGER,
+    student_id CHAR(5),
+    weight     INTEGER,
+    row_num    INTEGER,
+    CONSTRAINT pk_weight3 PRIMARY KEY (class, student_id)
+);
+
+INSERT INTO weight3
+VALUES (1, '100', 50, null),
+       (1, '101', 55, null),
+       (1, '102', 56, null),
+       (2, '100', 60, null),
+       (2, '101', 72, null),
+       (2, '102', 73, null),
+       (2, '103', 73, null);
+
+UPDATE weight3
+SET row_num = (SELECT row_num
+               FROM (SELECT class, student_id, ROW_NUMBER() OVER (PARTITION BY class ORDER BY student_id) AS row_num
+                     FROM weight3) AS w
+               WHERE weight3.class = w.class
+                 AND weight3.student_id = w.student_id);
+
+UPDATE weight3
+SET row_num = (SELECT COUNT(*)
+               FROM weight3 AS w2
+               WHERE w2.class = weight3.class
+                 AND w2.student_id <= weight3.student_id);

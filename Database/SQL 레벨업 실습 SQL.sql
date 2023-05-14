@@ -397,36 +397,139 @@ FROM Departments
 ANALYZE Departments;
 ANALYZE Employees;
 
-EXPLAIN SELECT dept_id, dept_name
+EXPLAIN
+SELECT dept_id, dept_name
 FROM Departments D
 WHERE NOT EXISTS (SELECT *
-              FROM Employees E
-              WHERE D.dept_id = E.dept_id);
+                  FROM Employees E
+                  WHERE D.dept_id = E.dept_id);
 
+-- 7강 서브쿼리
+--- 21강 서브쿼리가 일으키는 폐혜
+CREATE TABLE receipts
+(
+    customer_id CHAR(5),
+    number      INTEGER,
+    price       INTEGER,
+    CONSTRAINT pk_receipts PRIMARY KEY (customer_id, number)
+);
 
+INSERT INTO receipts
+VALUES ('A', 1, 500),
+       ('A', 2, 1000),
+       ('A', 3, 700),
+       ('B', 5, 100),
+       ('B', 6, 5000),
+       ('B', 7, 300),
+       ('B', 9, 200),
+       ('B', 12, 1000),
+       ('C', 10, 100),
+       ('C', 45, 200),
+       ('C', 70, 50),
+       ('D', 3, 2000);
 
+SELECT r1.customer_id, number, price
+FROM receipts AS r1
+         INNER JOIN (SELECT customer_id, MIN(number)
+                     FROM receipts
+                     GROUP BY customer_id) AS r2
+                    ON r1.customer_id = r2.customer_id
+                        AND r1.number = r2.min;
 
+SELECT customer_id, number, price
+FROM receipts r1
+WHERE number = (SELECT MIN(number)
+                FROM receipts r2
+                WHERE r1.customer_id = r2.customer_id);
 
+SELECT customer_id, number, price
+FROM (SELECT customer_id,
+             number,
+             price,
+             ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY number) AS row_num
+      FROM receipts) AS r
+WHERE row_num = 1;
 
+SELECT tmp_min.customer_id, tmp_min.price - tmp_max.price AS diff
+FROM (SELECT r1.customer_id, r1.number, r1.price
+      FROM receipts r1
+               INNER JOIN (SELECT customer_id, MIN(number) AS min
+                           FROM receipts
+                           GROUP BY customer_id) AS r2
+                          ON r1.customer_id = r2.customer_id
+                              AND r1.number = r2.min) AS tmp_min
+         INNER JOIN
+     (SELECT r3.customer_id, r3.number, r3.price
+      FROM receipts r3
+               INNER JOIN (SELECT customer_id, MAX(number) AS max
+                           FROM receipts
+                           GROUP BY customer_id) r4
+                          ON r3.customer_id = r4.customer_id
+                              AND r3.number = r4.max) AS tmp_max
+     ON tmp_min.customer_id = tmp_max.customer_id
+ORDER BY customer_id;
 
+SELECT customer_id,
+       SUM(CASE WHEN min_num = 1 THEN price ELSE 0 END) - SUM(CASE WHEN max_num = 1 THEN price ELSE 0 END) AS diff
+FROM (SELECT customer_id,
+             number,
+             price,
+             ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY number)      AS min_num,
+             ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY number DESC) AS max_num
+      FROM receipts) AS r
+WHERE min_num = 1
+   OR max_num = 1
+GROUP BY customer_id;
 
+--- 22강 서브쿼리 사용이 더 나은 경우
+CREATE TABLE companies
+(
+    company_code CHAR(3),
+    district     CHAR(2),
+    CONSTRAINT pk_companies PRIMARY KEY (company_code)
+);
 
+INSERT INTO companies
+VALUES ('001', 'A'),
+       ('002', 'B'),
+       ('003', 'C'),
+       ('004', 'D');
 
+CREATE TABLE shops
+(
+    shop_code       CHAR(3),
+    company_code    CHAR(3),
+    employee_number INTEGER,
+    main_flg        CHAR(1),
+    CONSTRAINT pk_shops PRIMARY KEY (shop_code, company_code)
+);
 
+INSERT INTO shops
+VALUES ('1', '001', 300, 'Y'),
+       ('2', '001', 400, 'N'),
+       ('3', '001', 250, 'Y'),
+       ('1', '002', 100, 'Y'),
+       ('2', '002', 20, 'N'),
+       ('1', '003', 400, 'Y'),
+       ('2', '003', 500, 'Y'),
+       ('3', '003', 300, 'N'),
+       ('4', '003', 200, 'Y'),
+       ('1', '004', 999, 'Y');
 
+---- companies(4) * shops(10)
+SELECT c.company_code, MAX(c.district), SUM(employee_number) AS sum_emp
+FROM companies c
+         INNER JOIN shops s
+                    ON c.company_code = s.company_code
+WHERE main_flg = 'Y'
+GROUP BY c.company_code;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---- companies(4) * group_shops(4)
+SELECT c.company_code, c.district, s.sum_emp
+FROM companies c
+         INNER JOIN
+     (SELECT company_code, SUM(employee_number) AS sum_emp
+      FROM shops
+      WHERE main_flg = 'Y'
+      GROUP BY company_code) AS s
+     ON c.company_code = s.company_code;

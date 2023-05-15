@@ -631,3 +631,49 @@ SET row_num = (SELECT COUNT(*)
                FROM weight3 AS w2
                WHERE w2.class = weight3.class
                  AND w2.student_id <= weight3.student_id);
+
+--- 24강 레코드에 순번 붙이기 응용
+SELECT AVG(weight)
+FROM (SELECT w1.weight
+      FROM weights w1,
+           weights w2
+      GROUP BY w1.weight
+      HAVING SUM(CASE WHEN w2.weight >= w1.weight THEN 1 ELSE 0 END) >= COUNT(*) / 2
+         AND SUM(CASE WHEN w2.weight <= w1.weight THEN 1 ELSE 0 END) >= COUNT(*) / 2) as temp;
+
+SELECT AVG(weight) AS median
+FROM (SELECT weight,
+             ROW_NUMBER() OVER (ORDER BY weight ASC, student_id ASC)   AS hi,
+             ROW_NUMBER() OVER (ORDER BY weight DESC, student_id DESC) AS lo
+      FROM weights) AS temp
+WHERE hi IN (lo, lo - 1, lo + 1);
+
+SELECT AVG(weight) AS median
+FROM (SELECT weight,
+             2 * ROW_NUMBER() OVER (ORDER BY weight)
+                 - COUNT(*) OVER ()  AS diff
+      FROM weights) AS temp
+WHERE diff BETWEEN 0 AND 2;
+
+--- 25강 시퀀스 객체, IDENTITY 필드, 채번 테이블
+CREATE SEQUENCE seq
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 100
+MINVALUE 1
+CYCLE;
+
+CREATE TABLE seq_test
+(
+    id   INTEGER,
+    name VARCHAR(10)
+);
+
+INSERT INTO seq_test
+VALUES (NEXTVAL('seq'), 'A');
+
+SELECT *
+FROM seq_test;
+
+-- 9장 갱신과 데이터 모델
+--- 26강 갱신은 효율적으로

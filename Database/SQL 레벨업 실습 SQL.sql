@@ -651,17 +651,17 @@ WHERE hi IN (lo, lo - 1, lo + 1);
 SELECT AVG(weight) AS median
 FROM (SELECT weight,
              2 * ROW_NUMBER() OVER (ORDER BY weight)
-                 - COUNT(*) OVER ()  AS diff
+                 - COUNT(*) OVER () AS diff
       FROM weights) AS temp
 WHERE diff BETWEEN 0 AND 2;
 
 --- 25강 시퀀스 객체, IDENTITY 필드, 채번 테이블
 CREATE SEQUENCE seq
-START WITH 1
-INCREMENT BY 1
-MAXVALUE 100
-MINVALUE 1
-CYCLE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 100
+    MINVALUE 1
+    CYCLE;
 
 CREATE TABLE seq_test
 (
@@ -677,3 +677,141 @@ FROM seq_test;
 
 -- 9장 갱신과 데이터 모델
 --- 26강 갱신은 효율적으로
+CREATE TABLE omit
+(
+    keycol CHAR(1),
+    seq    INTEGER,
+    val    INTEGER,
+    CONSTRAINT pk_omit PRIMARY KEY (keycol, seq)
+);
+
+INSERT INTO omit
+VALUES ('A', 1, 50),
+       ('A', 2, NULL),
+       ('A', 3, NULL),
+       ('A', 4, 70),
+       ('A', 5, NULL),
+       ('A', 6, 900),
+       ('B', 1, 10),
+       ('B', 2, 20),
+       ('B', 3, NULL),
+       ('B', 4, 3),
+       ('B', 5, NULL),
+       ('B', 6, NULL);
+
+DELETE
+FROM omit;
+
+UPDATE omit
+SET val = (SELECT val
+           FROM omit AS o2
+           WHERE o2.keycol = omit.keycol
+             AND o2.seq = (SELECT MAX(seq)
+                           FROM omit AS o3
+                           WHERE o3.keycol = omit.keycol
+                             AND o3.seq < omit.seq
+                             AND o3.val IS NOT NULL))
+WHERE val IS NULL;
+
+-- 27강 레코드에서 필드로의 갱신
+CREATE TABLE score_rows
+(
+    student_id CHAR(5),
+    subject    CHAR(3),
+    score      INTEGER,
+    CONSTRAINT pk_score PRIMARY KEY (student_id, subject)
+);
+
+INSERT INTO score_rows
+VALUES ('A001', '영어', 100),
+       ('A001', '국어', 58),
+       ('A001', '수학', 90),
+       ('B002', '영어', 77),
+       ('B002', '국어', 60),
+       ('C003', '영어', 52),
+       ('C003', '국어', 49),
+       ('C003', '사회', 100);
+
+CREATE TABLE score_cols
+(
+    student_id CHAR(5),
+    score_en   INTEGER,
+    score_nl   INTEGER,
+    score_math INTEGER,
+    CONSTRAINT pk_score_cols PRIMARY KEY (student_id)
+);
+
+INSERT INTO score_cols
+VALUES ('A001', NULL, NULL, NULL),
+       ('B002', NULL, NULL, NULL),
+       ('C003', NULL, NULL, NULL),
+       ('D004', NULL, NULL, NULL);
+
+UPDATE score_cols
+SET score_en   = (SELECT score
+                  FROM score_rows
+                  WHERE student_id = score_cols.student_id
+                    AND subject = '영어'),
+    score_nl   = (SELECT score
+                  FROM score_rows
+                  WHERE student_id = score_cols.student_id
+                    AND subject = '국어'),
+    score_math = (SELECT score
+                  FROM score_rows
+                  WHERE student_id = score_cols.student_id
+                    AND subject = '수학');
+
+UPDATE score_cols
+SET (score_en, score_nl, score_math) = (SELECT MAX(CASE WHEN subject = '영어' THEN score ELSE score_en END)   AS score_en,
+                                               MAX(CASE WHEN subject = '국어' THEN score ELSE score_nl END)   AS score_nl,
+                                               MAX(CASE WHEN subject = '수학' THEN score ELSE score_math END) AS score_math
+                                        FROM score_rows
+                                        WHERE student_id = score_cols.student_id);
+
+UPDATE score_cols
+SET (score_en, score_nl, score_math) = (SELECT MAX(CASE WHEN subject = '영어' THEN score ELSE score_en END)   AS score_en,
+                                               MAX(CASE WHEN subject = '국어' THEN score ELSE score_nl END)   AS score_nl,
+                                               MAX(CASE WHEN subject = '수학' THEN score ELSE score_math END) AS score_math
+                                        FROM score_rows
+                                        WHERE student_id = score_cols.student_id
+                                        GROUP BY student_id);
+
+CREATE TABLE score_cols2
+(
+    student_id CHAR(5),
+    score_en   INTEGER NOT NULL,
+    score_nl   INTEGER NOT NULL,
+    score_math INTEGER NOT NULL,
+    CONSTRAINT pk_score_cols2 PRIMARY KEY (student_id)
+);
+
+INSERT INTO score_cols2
+VALUES ('A001', 0, 0, 0),
+       ('B002', 0, 0, 0),
+       ('C003', 0, 0, 0),
+       ('D004', 0, 0, 0);
+
+UPDATE score_cols2
+SET (score_en, score_nl, score_math) = (SELECT COALESCE(MAX(CASE WHEN subject = '영어' THEN score ELSE score_en END), 0) AS score_en,
+                                               COALESCE(MAX(CASE WHEN subject = '국어' THEN score ELSE score_nl END), 0) AS score_nl,
+                                               COALESCE(MAX(CASE WHEN subject = '수학' THEN score ELSE score_math END),
+                                                        0)                                                             AS score_math
+                                        FROM score_rows
+                                        WHERE student_id = score_cols2.student_id)
+WHERE EXISTS (SELECT *
+              FROM score_rows
+              WHERE student_id = score_cols2.student_id);
+
+MERGE INTO score_cols2
+USING (SELECT student_id,
+              COALESCE(MAX(CASE WHEN subject = '영어' THEN score END), 0) AS score_en,
+              COALESCE(MAX(CASE WHEN subject = '국어' THEN score END), 0) AS score_nl,
+              COALESCE(MAX(CASE WHEN subject = '수학' THEN score END), 0) AS score_math
+       FROM score_rows
+       GROUP BY student_id) AS temp
+ON score_cols2.student_id = temp.student_id
+WHEN MATCHED THEN
+    UPDATE
+    SET score_en   = temp.score_en,
+        score_nl   = temp.score_nl,
+        score_math = temp.score_math;

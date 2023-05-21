@@ -1,6 +1,6 @@
 > 해당 글은 [SQL 레벨업](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=75566292#8968482519_CommentReview)을 정리한 내용입니다.
 
-# DB Architecture
+## DBMS Architecture
 
 <img src="../assets/db-architecture.png" alt="img" style="zoom:80%;" />
 
@@ -307,3 +307,120 @@ GROUP BY o.order_id;
 초기에 데이터 모델을 설계하는 것이 중요하고 쿼리만이 아닌 데이터 모델을 수정하는 것 또한 좋은 방법이 될 수 있다.
 
 더 넓은 시야를 가지고  문제 해결을 하는 습관을 가져야 한다.
+
+## 인덱스 (Index)
+
+### 인덱스로 효율적인 성능 향상을 하려면
+
+인덱스에 대한 선택 기준은 카디널리티와 선택률이다.
+
+카디널리티가 높은 필드는 모든 레코드에 다른 값이 들어가 있는 Unique 필드이다. 반면, 모든 레코드에 같은 값이 들어가있으면 카디널리티가 낮은 필드이다.
+
+선택률은 특정 필드값을 지정했을 때 해당 테이블에서 몇 개의 레코드가 선택되는지를 나타내는 개념이다.
+
+(Ex. 테이블의 레코드가 100개인 테이블에 기본키 필드의 특정 값을 지정하면 오직 1개가 나온다. 선택률 1/100 = 1%)
+
+따라서 카디널리티가 높을수록, 선택률이 낮을수록(10% 미만) 더 좋은 인덱스 후보가 된다.
+
+### 인덱스로 성능 향상이 어려운 경우
+
+테이블 정의와 SQL만 봐서 성능 향상을 가져올 수는 없다.
+
+#### 레코드를 제대로 압축하지 못하는 경우
+
+##### Case1
+
+```sql
+SELECT order_id, receive_date
+FROM orders
+WHERE flag = '5';
+```
+
+만약 위 flag 필드가
+1 - 200만
+
+2 - 500만
+
+3 - 500만
+
+4 - 500만
+
+5 - 1억
+
+개로 이루어져있다고 하면 선택률이 매우 높으므로 풀스캔이 차라리 더 나을 수 있다.
+
+##### Case2
+
+```sql
+SELECT order_id
+FROM orders
+WHERE receive_date BETWEEN :start_date AND :end_date;
+```
+
+날짜를 검색 조건으로 받을 때, 검색 조건이 하루라면 선택률이 매우 낮을 수 있다.
+
+하지만 검색 조건이 1년이 된다면 1일에 비해 365배가 될 수 있다.
+
+##### Case3
+
+```sql
+SELECT COUNT(*)
+FROM orders
+WHERE shop_id = :sid;
+```
+
+작은 가게(1만건)와 큰 가게(1000만건)는 주문량이 다를 수 밖에 없다.
+
+큰 가게의 선택률이 높기 때문에 오히려 인덱스 스캔이 성능 악화를 일으킨다.
+
+### 인덱스를 사용하지 않는 검색 조건
+
+#### 중간 일치, 후방 일치의 LIKE 연산자
+
+```sql
+SELECT order_id
+FROM orders
+WHERE shop_name LIKE '%대공원%';
+```
+
+중간 일치 연산을 이용해 범위를 더욱 좁힐 수 있다. 하지만 중간 일치(%이름%), 후방 일치(%이름)의 경우 인덱스를 타지 않는다.
+
+#### 색인 필드의 연산
+
+```sql
+SELECT *
+FROM table
+WHERE index_col * 1.1 > 100;
+```
+
+인덱스 컬럼을 연산한 결과는 당연히 인덱스 테이블에는 존재하지 않는다. 따라서 인덱스를 타지 않는다.
+
+```sql
+SELECT *
+FROM table
+WHERE index_col > 100 / 1.1
+```
+
+이와 같이 연산의 순서를 바꿔 사용하자.
+
+#### IS NULL & 함수
+
+NULL과 관련한 검색 조건에서 인덱스가 사용되지 않는다.
+
+```sql
+SELECT *
+FROM table
+WHERE index_col IS NULL;
+```
+
+```sql
+SELECT *
+FROM table
+WHERE LENGTH(index_col) = 10;
+```
+
+함수를 사용하는 경우도 마찬가지이다.
+
+#### 부정형 사용하는 경우
+
+부정형(<>, !=, NOT IN)은 인덱스를 사용할 수 없다.

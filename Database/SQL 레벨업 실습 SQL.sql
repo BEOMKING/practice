@@ -713,7 +713,7 @@ SET val = (SELECT val
                              AND o3.val IS NOT NULL))
 WHERE val IS NULL;
 
--- 27강 레코드에서 필드로의 갱신
+--- 27강 레코드에서 필드로의 갱신
 CREATE TABLE score_rows
 (
     student_id CHAR(5),
@@ -815,3 +815,163 @@ WHEN MATCHED THEN
     SET score_en   = temp.score_en,
         score_nl   = temp.score_nl,
         score_math = temp.score_math;
+
+--- 28강 필드에서 레코드로 변경
+DELETE
+FROM score_rows;
+DELETE
+FROM score_cols;
+
+INSERT INTO score_rows
+VALUES ('A001', '영어', NULL),
+       ('A001', '국어', NULL),
+       ('A001', '수학', NULL),
+       ('B002', '영어', NULL),
+       ('B002', '국어', NULL),
+       ('C003', '영어', NULL),
+       ('C003', '국어', NULL),
+       ('C003', '사회', NULL);
+
+INSERT INTO score_cols
+VALUES ('A001', 100, 58, 90),
+       ('B002', 70, 60, NULL),
+       ('C003', 52, 49, NULL),
+       ('D004', 10, 70, 100);
+
+UPDATE score_rows
+SET (score) = (SELECT CASE
+                          WHEN subject = '영어' THEN score_en
+                          WHEN subject = '국어' THEN score_nl
+                          WHEN subject = '수학' THEN score_math END
+               FROM score_cols
+               WHERE score_rows.student_id = score_cols.student_id);
+
+--- 29강 같은 테이블의 다른 레코드로 갱신
+CREATE TABLE stocks
+(
+    brand     VARCHAR(8),
+    sale_date DATE,
+    price     INTEGER,
+    CONSTRAINT pk_stocks PRIMARY KEY (brand, sale_date)
+);
+
+INSERT INTO stocks
+VALUES ('A철강', '2008-07-01', 1000),
+       ('A철강', '2008-07-04', 1200),
+       ('A철강', '2008-08-12', 800),
+       ('B상사', '2008-06-04', 3000),
+       ('B상사', '2008-09-11', 3000),
+       ('C전기', '2008-07-01', 9000),
+       ('D산업', '2008-06-04', 5000),
+       ('D산업', '2008-06-05', 5000),
+       ('D산업', '2008-06-06', 4800),
+       ('D산업', '2008-12-01', 5100);
+
+CREATE TABLE stocks2
+(
+    brand     VARCHAR(8),
+    sale_date DATE,
+    price     INTEGER,
+    trend     CHAR(3),
+    CONSTRAINT pk_stocks2 PRIMARY KEY (brand, sale_date)
+);
+
+INSERT INTO stocks2
+    (SELECT brand,
+            sale_date,
+            price,
+            CASE SIGN(price - LAG(price) OVER (PARTITION BY brand ORDER BY sale_date))
+                WHEN 1 THEN '상승'
+                WHEN 0 THEN '보합'
+                WHEN -1 THEN '하락' END AS trend
+     FROM stocks);
+
+INSERT INTO stocks2
+    (SELECT brand,
+            sale_date,
+            price,
+            CASE SIGN(price -
+                      MAX(price) OVER (PARTITION BY brand ORDER BY sale_date ROWS BETWEEN 1 PRECEDING AND 1 PRECEDING))
+                WHEN 1 THEN '상승'
+                WHEN 0 THEN '보합'
+                WHEN -1 THEN '하락' END AS trend
+     FROM stocks);
+
+--- 30강 갱신이 초래하는 트레이드오프
+CREATE TABLE orders
+(
+    order_id   INTEGER,
+    order_shop VARCHAR(32),
+    order_name VARCHAR(32),
+    order_date DATE,
+    CONSTRAINT pk_orders PRIMARY KEY (order_id)
+);
+
+SELECT *
+FROM orders;
+
+SELECT *
+FROM order_receipts;
+
+INSERT INTO orders
+VALUES (10000, '서울', '윤인성', '2011/8/22'),
+       (10001, '인천', '연하진', '2011/9/1'),
+       (10002, '인천', '패밀리마트', '2011/9/20'),
+       (10003, '부천', '한빛미디어', '2011/8/5'),
+       (10004, '수원', '동네슈퍼', '2011/8/22'),
+       (10005, '성남', '야근카페', '2011/8/29');
+
+CREATE TABLE order_receipts
+(
+    order_id         INTEGER,
+    order_receipt_id INTEGER,
+    item_group       VARCHAR(32),
+    delivery_date    DATE,
+    CONSTRAINT pk_order_receipts PRIMARY KEY (order_id, order_receipt_id)
+);
+
+INSERT INTO order_receipts
+VALUES (10000, 1, '식기', '2011/8/24'),
+       (10000, 2, '과자', '2011/8/25'),
+       (10000, 3, '소고기', '2011/8/26'),
+       (10001, 1, '어패류', '2011/9/4'),
+       (10002, 1, '과자', '2011/9/22'),
+       (10002, 2, '조미료 세트', '2011/9/22'),
+       (10003, 1, '쌀', '2011/8/6'),
+       (10003, 2, '소고기', '2011/8/10'),
+       (10003, 3, '식기', '2011/8/10'),
+       (10004, 1, '야채', '2011/8/23'),
+       (10005, 1, '음료수', '2011/8/30'),
+       (10005, 2, '과자', '2011/8/30');
+
+SELECT o.order_id,
+       o.order_name,
+       MAX(orc.delivery_date - o.order_date) AS diff_days
+FROM orders o
+         INNER JOIN order_receipts orc
+                    ON o.order_id = orc.order_id
+WHERE orc.delivery_date - o.order_date >= 3
+GROUP BY o.order_id;
+
+ALTER TABLE orders
+    ADD COLUMN del_late_flag INTEGER;
+
+CREATE TABLE orders2
+(
+    order_id   INTEGER,
+    order_shop VARCHAR(32),
+    order_name VARCHAR(32),
+    order_date DATE,
+    del_late_flag INTEGER,
+    CONSTRAINT pk_orders2 PRIMARY KEY (order_id)
+);
+
+INSERT INTO orders2
+VALUES (10000, '서울', '윤인성', '2011/8/22', 1),
+       (10001, '인천', '연하진', '2011/9/1', 1),
+       (10002, '인천', '패밀리마트', '2011/9/20', 0),
+       (10003, '부천', '한빛미디어', '2011/8/5', 1),
+       (10004, '수원', '동네슈퍼', '2011/8/22', 1),
+       (10005, '성남', '야근카페', '2011/8/29', 0);
+
+SELECT * FROM orders2;

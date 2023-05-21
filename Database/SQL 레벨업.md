@@ -245,4 +245,35 @@ Sort Merge는 결합 대상 테이블들을 각 결합키로 정렬하고 일치
 
 대신 서브쿼리의 결과가 조인(결합) 대상 레코드 크기를 감소시키는 경우에서는 성능이 더 좋을 수 있다.
 
-SQL 성능을 결정하는 요인은 I/O가 매우 크다. 따라서 불필요한 서브쿼리 사용을 지양해야 하며 윈도우 함수의 사용을 우선적으로 생각해보면 좋을 것이다.
+SQL 성능을 결정하는 요인은 I/O가 매우 크다. 따라서 불필요한 서브쿼리 사용을 지양해야 하며 윈도우 함수의 사용을 우선적으로 생각해보면 좋을 것이다.a
+
+## 갱신(Update)과 데이터 모델
+
+### 갱신이 가져오는 트레이드오프
+
+![image-20230521160530681](../assets/db-update-tables.png)
+
+위와 같이 주문(orders), 주문 안에 명세(order_receipts) 테이블이 있다.
+
+여기서 주문일(order_date)와 배송 예정일(delivery_date)의 차이가 3일 이상인 경우 알림을 보낼 기능을 만드려고 한다.
+
+첫 번째 방법은 쿼리를 통해 대상을 조회하는 것이다.
+
+```sql
+SELECT o.order_id,
+       o.order_name,
+       MAX(orc.delivery_date - o.order_date) AS diff_days
+FROM orders o
+         INNER JOIN order_receipts orc
+                    ON o.order_id = orc.order_id
+WHERE orc.delivery_date - o.order_date >= 3
+GROUP BY o.order_id;
+```
+
+하지만 이 방법은 집약과 결합을 수행해야 하므로 테이블의 크기가 커졌을 때 비용 소모가 커질 것이다.
+
+두 번째 방법은 모델 갱신을 사용하는 방법이다.
+
+<img src="../assets/db-model-update-tables.png" alt="image-20230521161321140" style="zoom:50%;" />
+
+데이터 모델을 갱신하여 간단한 조회를 이용해 원하는 정보를 얻을 수 있다.

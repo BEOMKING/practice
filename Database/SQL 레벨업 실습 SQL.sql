@@ -846,6 +846,34 @@ SET (score) = (SELECT CASE
                FROM score_cols
                WHERE score_rows.student_id = score_cols.student_id);
 
+INSERT INTO score_rows
+VALUES ('A001', '영어', 0),
+       ('A001', '국어', 0),
+       ('A001', '수학', 0),
+       ('B002', '영어', 0),
+       ('B002', '국어', 0),
+       ('C003', '영어', 0),
+       ('C003', '국어', 0),
+       ('C003', '사회', 0);
+
+INSERT INTO score_cols
+VALUES ('A001', 100, 58, 90),
+       ('B002', 70, 60, NULL),
+       ('C003', 52, 49, NULL),
+       ('D004', 10, 70, 100);
+
+UPDATE score_rows
+SET (score) = (SELECT CASE
+                          WHEN subject = '영어' THEN score_en
+                          WHEN subject = '국어' THEN score_nl
+                          WHEN subject = '수학' THEN score_math
+                          ELSE 0 END
+               FROM score_cols
+               WHERE score_rows.student_id = score_cols.student_id);
+
+SELECT *
+FROM score_rows;
+
 --- 29강 같은 테이블의 다른 레코드로 갱신
 CREATE TABLE stocks
 (
@@ -907,12 +935,6 @@ CREATE TABLE orders
     CONSTRAINT pk_orders PRIMARY KEY (order_id)
 );
 
-SELECT *
-FROM orders;
-
-SELECT *
-FROM order_receipts;
-
 INSERT INTO orders
 VALUES (10000, '서울', '윤인성', '2011/8/22'),
        (10001, '인천', '연하진', '2011/9/1'),
@@ -953,15 +975,12 @@ FROM orders o
 WHERE orc.delivery_date - o.order_date >= 3
 GROUP BY o.order_id;
 
-ALTER TABLE orders
-    ADD COLUMN del_late_flag INTEGER;
-
 CREATE TABLE orders2
 (
-    order_id   INTEGER,
-    order_shop VARCHAR(32),
-    order_name VARCHAR(32),
-    order_date DATE,
+    order_id      INTEGER,
+    order_shop    VARCHAR(32),
+    order_name    VARCHAR(32),
+    order_date    DATE,
     del_late_flag INTEGER,
     CONSTRAINT pk_orders2 PRIMARY KEY (order_id)
 );
@@ -974,4 +993,20 @@ VALUES (10000, '서울', '윤인성', '2011/8/22', 1),
        (10004, '수원', '동네슈퍼', '2011/8/22', 1),
        (10005, '성남', '야근카페', '2011/8/29', 0);
 
-SELECT * FROM orders2;
+--- 32강 시야 협착: 관련 문제
+SELECT o.order_id,
+       o.order_name,
+       o.order_date,
+       COUNT(*)
+FROM orders o
+         INNER JOIN order_receipts orc
+                    ON o.order_id = orc.order_id
+GROUP BY o.order_id;
+
+SELECT o.order_id,
+       o.order_name,
+       o.order_date,
+       COUNT(*) OVER (PARTITION BY o.order_id) AS cnt
+FROM orders o
+         INNER JOIN order_receipts orc
+                    ON o.order_id = orc.order_id;

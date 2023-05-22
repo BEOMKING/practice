@@ -1010,3 +1010,5 @@ SELECT o.order_id,
 FROM orders o
          INNER JOIN order_receipts orc
                     ON o.order_id = orc.order_id;
+
+CREATE INDEX idx_orders_order_id_name ON orders (order_id, order_name);

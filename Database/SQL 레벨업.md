@@ -2,7 +2,7 @@
 
 ## DBMS Architecture
 
-<img src="../assets/db-architecture.png" alt="img" style="zoom:80%;" />
+<img src="assets/db-architecture.png" alt="img" style="zoom:80%;" />
 
 ---
 
@@ -57,7 +57,7 @@ DBMS에서 제공하는 기본 설정은 데이터 캐시가 로그 버퍼보다
 
 DBMS의 쿼리 처리 흐름은 다음과 같다.
 
-<img src="../assets/db-queryprocessflow.png" alt="img" style="zoom: 25%;" />
+<img src="assets/db-queryprocessflow.png" alt="img" style="zoom: 25%;" />
 
 ### 카탈로그 매니저 (Catalog Manager)
 
@@ -95,7 +95,7 @@ DBMS의 쿼리 처리 흐름은 다음과 같다.
 
 따라서 모든 경우의 수를 구하는 연산이라고 할 수 있다. Employees 6개 레코드, Departments 3개 레코드이므로 18개 레코드을 결과로 얻을 수 있다.
 
-<img src="../assets/db-cross-join.png" alt="img" style="zoom:67%;" />
+<img src="assets/db-cross-join.png" alt="img" style="zoom:67%;" />
 
 하지만 모든 경우의 수를 구하는 것은 사용처도 많지 않으며 비용이 매우 크다는 단점이 있다.
 
@@ -105,7 +105,7 @@ DBMS의 쿼리 처리 흐름은 다음과 같다.
 
 연산 결과를 보면 위 크로스 조인의 결과의 부분 집합이라는 것을 알 수 있다. Inner 라는 단어가 위 카티션 프로덕트의 부분 집합이라는 의미에서 나온 단어이다.
 
-![img](../assets/db-inner-join.png)
+![img](assets/db-inner-join.png)
 
 #### Outer Join
 
@@ -119,7 +119,7 @@ FROM Departments
 
 아래는 위 쿼리의 결과이다.
 
-![img](../assets/db-outer-join.png)
+![img](assets/db-outer-join.png)
 
 LEFT, RIGHT의 차이는 왼쪽이 마스터 테이블이냐 오른쪽이 마스터 테이블이냐의 차이이다.
 
@@ -141,7 +141,7 @@ LEFT, RIGHT의 차이는 왼쪽이 마스터 테이블이냐 오른쪽이 마스
 
 #### NL (Nested Loops)
 
-![image-20230508204844482](../assets/db-nested-loops.png)
+![image-20230508204844482](assets/db-nested-loops.png)
 
 자주 접할 수 있는 이중 반복문과 같은 알고리즘이다. 기준이 되는 테이블(위 사진 기준 Table_A)을 외부(구동) 테이블, 다른 테이블을 내부 테이블이라고 한다.
 
@@ -153,13 +153,13 @@ LEFT, RIGHT의 차이는 왼쪽이 마스터 테이블이냐 오른쪽이 마스
 
 단,  `외부 테이블의 크기가 더 작고` & ` 내부 테이블과의 결합키 필드에 인덱스가 존재` 해야  더 빠른 수행 시간을 얻을 수 있다.
 
-![image-20230509000640221](../assets/db-nested-loops-index.png)
+![image-20230509000640221](assets/db-nested-loops-index.png)
 
 내부 테이블의 결합키 필드에 인덱스가 존재한다면 내부 테이블 전체를 순회할 필요없이 해당 데이터에 빠르게 접근할 수 있기 때문이다.
 
 순회가 완전하게 없어지는 상황은 결합 키가 내부 테이블에 유일(Unique)한 경우이다. 유일하지 않다면 여러 데이터가 히트되기 때문에 완전히 없앨 수는 없다.
 
-![image-20230508233930145](../assets/db-nested-loops-indexs.png)
+![image-20230508233930145](assets/db-nested-loops-indexs.png)
 
 이 히트되는 데이터가 너무 많다면 기대 이하의 성능이 발생할 수 있다. 예를 들어, 가게와 주문 관계에서 가게의 특정 주문을 조회하는 경우를 생각해보면 주문량이 많은 가게를 조회할 때와 주문량이 적은 가게를 조회할 때의 성능이 균등하지 않게 나온다.
 
@@ -174,7 +174,7 @@ LEFT, RIGHT의 차이는 왼쪽이 마스터 테이블이냐 오른쪽이 마스
 1. 작은 테이블에서 결합키를 해싱하여 해시 테이블을 생성한다.
 2. 큰 테이블의 결합키를 해싱하여 해시 테이블에 매칭하는 방식으로 조인한다.
 
-![image-20230511213451167](../assets/db-hash-join.png)
+![image-20230511213451167](assets/db-hash-join.png)
 
 
 
@@ -253,7 +253,7 @@ SQL 성능을 결정하는 요인은 I/O가 매우 크다. 따라서 불필요�
 
 ### 갱신이 가져오는 트레이드오프
 
-![image-20230521160530681](../assets/db-update-tables.png)
+![image-20230521160530681](assets/db-update-tables.png)
 
 위와 같이 주문(orders), 주문 안에 명세(order_receipts) 테이블이 있다.
 
@@ -276,7 +276,7 @@ GROUP BY o.order_id;
 
 두 번째 방법은 모델 갱신을 사용하는 방법이다.
 
-<img src="../assets/db-model-update-tables.png" alt="image-20230521161321140" style="zoom:50%;" />
+<img src="assets/db-model-update-tables.png" alt="image-20230521161321140" style="zoom:50%;" />
 
 배송 지연 플래그(del_late_flag)를 추가하는 데이터 모델을 갱신 작업을 통해 간단한 조회를 이용해 원하는 정보를 얻을 수 있다.
 

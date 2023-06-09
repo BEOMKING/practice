@@ -60,6 +60,35 @@ public class BasicController {
         return "basic/basic-objects";
     }
 
+    @GetMapping("/link")
+    public String link(final Model model) {
+        model.addAttribute("param1", "data1");
+        model.addAttribute("param2", "data2");
+        return "basic/link";
+    }
+
+    @GetMapping("/operation")
+    public String operation(final Model model) {
+        model.addAttribute("nullData", null);
+        model.addAttribute("data", "Spring!");
+        return "basic/operation";
+    }
+
+    @GetMapping("/attribute")
+    public String attribute() {
+        return "basic/attribute";
+    }
+
+    @GetMapping("/each")
+    public String each(final Model model) {
+        final List<User> list = new ArrayList<>();
+        list.add(new User("userA", 10));
+        list.add(new User("userB", 20));
+
+        model.addAttribute("users", list);
+        return "basic/each";
+    }
+
     static class User {
 
         private final String username;

@@ -3,19 +3,32 @@ package com.example.mvc2.web.form;
 import com.example.mvc2.domain.item.Item;
 import com.example.mvc2.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/form/items")
 @RequiredArgsConstructor
 public class FormItemController {
 
     private final ItemRepository itemRepository;
+
+    @ModelAttribute("regions")
+    public Map<String, String> regions() {
+        final Map<String, String> regions = new LinkedHashMap<>();
+        regions.put("SEOUL", "서울");
+        regions.put("BUSAN", "부산");
+        regions.put("JEJU", "제주");
+        return regions;
+    }
 
     @GetMapping
     public String items(Model model) {

@@ -4,17 +4,15 @@ import com.example.mvc2.domain.item.DeliveryCode;
 import com.example.mvc2.domain.item.Item;
 import com.example.mvc2.domain.item.ItemRepository;
 import com.example.mvc2.domain.item.ItemType;
-import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -68,8 +66,34 @@ public class FormItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
-        Item savedItem = itemRepository.save(item);
+    public String addItem(final Model model, @ModelAttribute Item item, RedirectAttributes redirectAttributes) {
+        final Map<String, String> errors = new HashMap<>();
+
+        if (!StringUtils.hasText(item.getItemName())) {
+            errors.put("itemName", "상품 이름은 필수입니다.");
+        }
+
+        if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
+            errors.put("price", "가격은 1,000 ~ 1,000,000 까지 허용합니다.");
+        }
+
+        if (item.getQuantity() == null || item.getQuantity() > 9999) {
+            errors.put("quantity", "수량은 최대 9,999 까지 허용합니다.");
+        }
+
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            final int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                errors.put("globalError", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 값 = " + resultPrice);
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            return "form/addForm";
+        }
+
+        final Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
         return "redirect:/form/items/{itemId}";

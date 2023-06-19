@@ -28,12 +28,5 @@ public class ItemValidator implements Validator {
         if (item.getQuantity() == null || item.getQuantity() > 9999) {
             errors.rejectValue("quantity", "max", new Object[]{9999}, "수량은 최대 9,999 까지 허용합니다.");
         }
-
-        if (item.getPrice() != null && item.getQuantity() != null) {
-            final int resultPrice = item.getPrice() * item.getQuantity();
-            if (resultPrice < 10000) {
-                errors.reject("totalPriceMin", new Object[]{10000, resultPrice}, "가격 * 수량의 합은 10,000원 이상이어야 합니다.");
-            }
-        }
     }
 }

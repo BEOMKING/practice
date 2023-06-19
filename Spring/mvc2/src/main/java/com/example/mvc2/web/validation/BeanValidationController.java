@@ -4,6 +4,7 @@ import com.example.mvc2.domain.item.DeliveryCode;
 import com.example.mvc2.domain.item.Item;
 import com.example.mvc2.domain.item.ItemRepository;
 import com.example.mvc2.domain.item.ItemType;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -31,12 +32,12 @@ import java.util.Map;
 public class BeanValidationController {
 
     private final ItemRepository itemRepository;
-    private final ItemValidator itemValidator;
-
-    @InitBinder
-    public void init(final WebDataBinder dataBinder) {
-        dataBinder.addValidators(itemValidator);
-    }
+//    private final ItemValidator itemValidator;
+//
+//    @InitBinder
+//    public void init(final WebDataBinder dataBinder) {
+//        dataBinder.addValidators(itemValidator);
+//    }
 
     @ModelAttribute("regions")
     public Map<String, String> regions() {
@@ -81,8 +82,28 @@ public class BeanValidationController {
         return "bean-validation/addForm";
     }
 
+//    @PostMapping("/add")
+//    public String addItemV5(@Validated @ModelAttribute Item item, final BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+//        if (bindingResult.hasErrors()) {
+//            log.error("errors={}", bindingResult);
+//            return "bean-validation/addForm";
+//        }
+//
+//        final Item savedItem = itemRepository.save(item);
+//        redirectAttributes.addAttribute("itemId", savedItem.getId());
+//        redirectAttributes.addAttribute("status", true);
+//        return "redirect:/bean-validation/items/{itemId}";
+//    }
+
     @PostMapping("/add")
-    public String addItemV5(@Validated @ModelAttribute Item item, final BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String addItem(@Validated @ModelAttribute Item item, final BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            final int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, "가격 * 수량의 합은 10,000원 이상이어야 합니다.");
+            }
+        }
+
         if (bindingResult.hasErrors()) {
             log.error("errors={}", bindingResult);
             return "bean-validation/addForm";
@@ -102,7 +123,19 @@ public class BeanValidationController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+    public String edit(@PathVariable Long itemId, @Valid @ModelAttribute Item item, final BindingResult bindingResult) {
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            final int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, "가격 * 수량의 합은 10,000원 이상이어야 합니다.");
+            }
+        }
+
+        if (bindingResult.hasErrors()) {
+            log.error("errors={}", bindingResult);
+            return "bean-validation/editForm";
+        }
+
         itemRepository.update(itemId, item);
         return "redirect:/bean-validation/items/{itemId}";
     }

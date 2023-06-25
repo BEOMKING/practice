@@ -3,9 +3,9 @@
 ## 목차
 
 - [Validation](#Validation)
-- [코드 기반의 Validation](##코드-기반의-Validation)
-- [Bean Validation](##Bean-Validation)
-- [결론](##결론)
+- [코드 기반의 Validation](#코드-기반의-Validation)
+- [Bean Validation](#Bean-Validation)
+- [결론](#결론)
 
 클라이언트에서 서버에 값을 보낼 때, 이 값을 검증할 수단이 필요하다. 잘못된 데이터는 애플리케이션의 장애를 유발할 수 있기 때문이다. 
 

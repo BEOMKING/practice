@@ -3,8 +3,8 @@
 ## 목차
 
 - [Validation](#Validation)
-- [코드 기반의 Validation](##코드 기반의 Validation)
-- [Bean Validation
+- [코드 기반의 Validation](##코드-기반의-Validation)
+- [Bean Validation](##Bean-Validation)
 - [결론](##결론)
 
 클라이언트에서 서버에 값을 보낼 때, 이 값을 검증할 수단이 필요하다. 잘못된 데이터는 애플리케이션의 장애를 유발할 수 있기 때문이다. 
@@ -27,7 +27,7 @@
 
 ## 코드 기반의 Validation
 
-나중에 소개할 애노테이션 기반의 [Bean Validation](##Bean Validation)을 사용하기전에는 어떤 방식으로 검증 로직을 구현했는지 먼저 알아보자.
+나중에 소개할 애노테이션 기반의 [Bean Validation](##Bean-Validation)을 사용하기전에는 어떤 방식으로 검증 로직을 구현했는지 먼저 알아보자.
 
 <img src="assets/binding-result-example.png" alt="img" style="zoom:45%;" />
 
@@ -221,8 +221,6 @@ Field error in object 'memberCreateRequest' on field 'password': rejected value 
    ```
 
 3. 라이브러리가 제공하는 기본 값 사용 Ex. 크기가 8에서 20 사이여야 합니다
-
----
 
 ## 결론
 코드 기반의 Validation보다 애노테이션 기반의 Bean Validation 방식으로 더 간결하게 개선할 수 있었다.

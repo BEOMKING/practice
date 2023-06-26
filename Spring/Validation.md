@@ -146,7 +146,7 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
 ```java
 @Getter
 public class Item {
-		private Long id;
+    private Long id;
 
     @NotBlank
     private String itemName;
@@ -171,8 +171,11 @@ public Item signUp(@Valid @RequestBody final Item item) {
 
 이러한 변화에도 동일한 동작이 되는 이유는 스프링 부트가 spring-boot-starter-validation 라이브러리를 넣으면 자동으로 글로벌 Validator로 등록하기 때문이다.
 
-> LocalValidatorFactoryBean을 글로벌 Validator로 등록한다. 이 Validator는 @NotNull 같은 애노테이션을 보고 검증을 수행한다. 
-> 검증 오류가 발생하면 직접 구현한 Validator와 동일하게 필드 에러, 오브젝트 에러를 생성해서 BindingResult 에 담아준다. (오브젝트 에러도 애노테이션으로 처리할 수 있긴한데 불편하다.)
+> LocalValidatorFactoryBean을 글로벌 Validator로 등록하며 @NotNull 같은 애노테이션을 보고 검증을 수행한다. 
+>
+> 검증 오류가 발생하면 직접 구현한 Validator와 동일하게 필드 에러, 오브젝트 에러를 생성해서 BindingResult 에 담아준다. 
+>
+> (오브젝트 에러도 애노테이션으로 처리할 수 있긴한데 불편하다.)
 
 ### Messaging
 
@@ -181,13 +184,13 @@ public Item signUp(@Valid @RequestBody final Item item) {
 한국어 디폴트 메시지
 
 ```
-Field error in object 'memberCreateRequest' on field 'password': rejected value [1234123]; codes [Size.memberCreateRequest.password,Size.password,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [memberCreateRequest.password,password]; arguments []; default message [password],20,8]; default message [크기가 8에서 20 사이여야 합니다]
+Field error in object 'memberCreateRequest' on field 'password': rejected value [1234123]; ..생략.. default message [크기가 8에서 20 사이여야 합니다]
 ```
 
 영어 디폴트 메시지
 
 ```
-Field error in object 'memberCreateRequest' on field 'password': rejected value [1234123]; codes [Size.memberCreateRequest.password,Size.password,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [memberCreateRequest.password,password]; arguments []; default message [password],20,8]; default message [size must be between 8 and 20]
+Field error in object 'memberCreateRequest' on field 'password': rejected value [1234123]; ..생략.. default message [size must be between 8 and 20]
 ```
 
 #### 메시징 사용 방식
@@ -267,8 +270,6 @@ Field error in object 'memberCreateRequest' on field 'password': rejected value 
     }
 ]
 ```
-
-
 
 위와 같은 결과를 얻을 수 있는데 불필요한 정보가 많이 담겨있기 때문에 기본 응답과 Errors 데이터를 담은 응답을 바로 사용할 순 없다.
 

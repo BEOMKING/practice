@@ -1,5 +1,6 @@
 package com.example.mvc2.web.api;
 
+import com.example.mvc2.exception.UserException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,15 @@ public class ApiExceptionController {
     @GetMapping("/api/members/{id}")
     public ResponseEntity<?> getMember(@PathVariable final String id) {
         if (id.equals("ex")) {
-            return ResponseEntity.badRequest().body(new IllegalArgumentException("잘못된 사용자").getMessage());
+            throw new IllegalStateException();
         }
+
         if (id.equals("bad")) {
             throw new IllegalArgumentException("잘못된 입력 값");
+        }
+
+        if (id.equals("user-ex")) {
+            throw new UserException("사용자 오류");
         }
 
         return ResponseEntity.ok(new MemberDto(id, "hello " + id));

@@ -1,0 +1,18 @@
+package com.example.mvc2;
+
+import com.example.mvc2.exception.MyHandlerExceptionResolver;
+import com.example.mvc2.exception.UserHandlerExceptionResolver;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void extendHandlerExceptionResolvers(final List<HandlerExceptionResolver> resolvers) {
+        resolvers.add(new MyHandlerExceptionResolver());
+        resolvers.add(new UserHandlerExceptionResolver());
+    }
+}

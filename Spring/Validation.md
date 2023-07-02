@@ -27,7 +27,9 @@
 
 ## 코드 기반의 Validation
 
-나중에 소개할 애노테이션 기반의 [Bean Validation](##Bean-Validation)을 사용하기전에는 어떤 방식으로 검증 로직을 구현했는지 먼저 알아보자.
+이 부분은 검증을 수월하게 수행할 수 있도록 도와주는 [Bean Validation](##Bean-Validation)을 설명하기 전에  [Bean Validation](##Bean-Validation)이 나오기 전에는 어떤 식으로 검증을 구현했는지를 알아보는 파트이다.
+
+ [Bean Validation](##Bean-Validation)은 애노테이션을 활용해 많은 구현을 생략하기 때문에 원리를 이해하는데 도움이 될 수 있다.
 
 <img src="assets/binding-result-example.png" alt="img" style="zoom:45%;" />
 
@@ -107,8 +109,6 @@ supports, validate 메서드를 구현해야 한다.
 4. BindingResult에 에러 적재
 5. 응답
 
-이러한 내부 로직은 다음에 소개할 방법은 구현 방식만 다르지 원리는 동일하다.
-
 ## Bean Validation
 
 위 예시에서 보면 검증은 크게 필드와 오브젝트 대상으로 나뉜다.
@@ -126,9 +126,13 @@ public class Item {
 
 대상이 오브젝트일 경우, 단독 필드 에러가 아닌 'price * quantity가 10000 이상이어야 한다.' 같은 비즈니스 규칙에 대한 오류를 오브젝트 오류라고 한다.
 
-여기서 오브젝트 오류는 별도의 메서드를 작성하여 검증하는 것이 낫다. 다만 필드 오류의 경우 그 개수가 많고 이러한 필드 오류를 처리하는 코드를 일일이 작성하는 것은 비효율적일 수 있다.
+여기서 오브젝트 오류는 별도의 메서드를 작성하여 검증하는 것이 낫다. 
 
-이를 편리하게 처리도록 도와주는 것이 Bean Validation이다. 스프링 부트의 기본 구현체는 Hibernate Validator이다. 그러므로 자세한 내용은 [공식 문서](https://hibernate.org/validator/)를 참고하자.
+다만 필드 오류의 경우 그 개수가 많고 이러한 필드 오류를 처리하는 코드를 일일이 작성하는 것은 비효율적일 수 있다. [코드 기반의 Validation](##코드-기반의-Validation)을 이용하면 각 객체에 대한 Validator 객체를 만들고 등록하는 과정이 매번 필요하다.
+
+이런 과정없이 편리하게 처리하도록 도와주는 것이 Bean Validation이다. 
+
+> 스프링 부트의 기본 구현체는 Hibernate Validator이다. 자세한 내용은 [공식 문서](https://hibernate.org/validator/)를 참고하자.
 
 스프링 부트는 아래 의존성을 추가해 사용할 수 있다.
 

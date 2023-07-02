@@ -2,9 +2,9 @@
 
 ## 목차
 
-- [공통 예외 처리](##공통-예외-처리)
-- [동작 원리 (HandlerExceptionResolver)](##동작-원리-(HandlerExceptionResolver))
-- [결론](##결론)
+- [공통 예외 처리](#공통-예외-처리)
+- [동작 원리 (HandlerExceptionResolver)](#동작-원리-(HandlerExceptionResolver))
+- [결론](#결론)
 
 API 통신을 사용할 때는 다양한 오류 상황에 맞는 스펙으로 응답을 내려주어야 한다. 또한, 에러 응답은 일관적이어야 한다. 
 매 요청마다 일관적이지 못한 응답 스펙이 오면 클라이언트 입장에서 에러 응답을 처리하기가 어렵기 때문이다.

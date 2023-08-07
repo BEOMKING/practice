@@ -7,3 +7,6 @@
 - [Locale](https://github.com/BEOMKING/PersonalStudy/blob/main/Spring/Locale.md)
 - [Validation](https://github.com/BEOMKING/PersonalStudy/blob/main/Spring/Validation.md)
 - [ExceptionHandler](https://github.com/BEOMKING/PersonalStudy/blob/main/Spring/ExceptionHandler.md)
+
+## Book
+- [필독! 개발자 온보딩 가이드](http://github.com/BEOMKING/PersonalStudy/blob/main/Book/필독!%20개발자%20온보딩%20가이드.md)

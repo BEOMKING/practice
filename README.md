@@ -10,6 +10,7 @@
 
 ## Kafka
 - [카프카 이론](https://github.com/BEOMKING/Study/blob/main/Kafka/카프카%20이론.md)
+- [카프카 실습](https://github.com/BEOMKING/Study/blob/main/Kafka/카프카%20실습.md)
 
 ## Book
 - [필독! 개발자 온보딩 가이드](http://github.com/BEOMKING/PersonalStudy/blob/main/Book/필독!%20개발자%20온보딩%20가이드.md)

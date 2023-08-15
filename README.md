@@ -11,8 +11,8 @@
 ## Kafka
 - [카프카 이론](https://github.com/BEOMKING/Study/blob/main/Kafka/카프카%20이론.md)
 - [카프카 docker-compose 세팅 & 명령어](https://github.com/BEOMKING/Study/blob/main/Kafka/카프카%20docker-compose%20세팅%20&%20명령어.md)
-- [카프카 프로듀서](https://github.com/BEOMKING/Study/blob/main/Kafka/카프카%20프로듀서.md)
-- [카프카 컨슈머](https://github.com/BEOMKING/Study/blob/main/Kafka/카프카%20컨슈머.md)
+- [카프카 프로듀서 구현](https://github.com/BEOMKING/Study/blob/main/Kafka/카프카%20프로듀서%20구현.md)
+- [카프카 컨슈머 구현](https://github.com/BEOMKING/Study/blob/main/Kafka/카프카%20컨슈머%20구현.md)
 
 ## Book
 - [필독! 개발자 온보딩 가이드](http://github.com/BEOMKING/PersonalStudy/blob/main/Book/필독!%20개발자%20온보딩%20가이드.md)

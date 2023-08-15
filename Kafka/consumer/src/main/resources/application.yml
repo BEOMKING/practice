@@ -3,3 +3,8 @@ spring:
     init:
       mode: always
       schema-locations: classpath:/schema.sql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver

@@ -18,8 +18,15 @@ public class ChatConsumer {
     }
 
     @KafkaListener(id = "chatListener1", topics = "chat")
-    public void recordChat(final List<Chat> chat) {
-        log.info("Consumed message : {}", chat.size());
-        chat.forEach(chatRepository::save);
+    public void recordChat(final Chat chat) {
+        try {
+            Thread.sleep(10);
+            log.info("Consumed message : {}", chat.getContent());
+            chatRepository.save(chat);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        log.info("Consumed message : {}", chat.size());
+//        chat.forEach(chatRepository::save);
     }
 }

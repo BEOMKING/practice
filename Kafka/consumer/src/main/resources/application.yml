@@ -8,3 +8,6 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+  kafka:
+    consumer:
+      enabled: true

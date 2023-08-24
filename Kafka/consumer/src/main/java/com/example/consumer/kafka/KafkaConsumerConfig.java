@@ -4,10 +4,8 @@ import com.example.consumer.domain.Chat;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
@@ -21,7 +19,6 @@ import java.util.Map;
 @EnableKafka
 @Configuration
 @ConditionalOnProperty(name = "spring.kafka.consumer.enabled", havingValue = "true")
-@Import(KafkaAutoConfiguration.class)
 public class KafkaConsumerConfig {
 
     @Bean

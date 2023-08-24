@@ -11,3 +11,5 @@ spring:
   kafka:
     consumer:
       enabled: true
+    topics:
+      chat: chat,conversation

@@ -12,6 +12,7 @@ import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.Map;
@@ -26,6 +27,7 @@ public class KafkaConsumerConfig {
         final ConcurrentKafkaListenerContainerFactory<String, Chat> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setBatchListener(true);
+        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
 //        factory.setConcurrency(3);
 
         return factory;
@@ -41,7 +43,9 @@ public class KafkaConsumerConfig {
         return Map.of(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092",
                 ConsumerConfig.GROUP_ID_CONFIG, "chatGroupId",
-                ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 200
+                ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 200,
+                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest",
+                ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false
         );
     }
 

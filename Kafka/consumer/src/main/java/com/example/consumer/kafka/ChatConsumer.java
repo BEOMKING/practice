@@ -18,7 +18,7 @@ public class ChatConsumer {
         this.chatRepository = chatRepository;
     }
 
-    @KafkaListener(id = "chatListener1", topics = "#{'${spring.kafka.topics.chat}'.split(',')}", containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(id = "chatListener1", topics = "#{'${spring.kafka.topics.chat}'.split(',')}", containerFactory = "kafkaListenerContainerFactory", autoStartup = "${spring.kafka.consumer.enabled}")
     public void recordChat(final List<Chat> chat, final Acknowledgment ack) {
         log.info("Consumed size : {}", chat.size());
         chat.forEach(chatRepository::save);

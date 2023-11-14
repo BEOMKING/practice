@@ -7,6 +7,7 @@
 - [Locale](https://github.com/BEOMKING/PersonalStudy/blob/main/Spring/Locale.md)
 - [Validation](https://github.com/BEOMKING/PersonalStudy/blob/main/Spring/Validation.md)
 - [ExceptionHandler](https://github.com/BEOMKING/PersonalStudy/blob/main/Spring/ExceptionHandler.md)
+- [`@Conditional` 학습 테스트](https://github.com/BEOMKING/Study/blob/main/Spring/Conditional%20%ED%95%99%EC%8A%B5%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EA%B8%B0.md)
 
 ## Kafka
 - [카프카 이론](https://github.com/BEOMKING/Study/blob/main/Kafka/카프카%20이론.md)

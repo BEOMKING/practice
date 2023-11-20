@@ -23,7 +23,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@EmbeddedKafka(partitions = 1, topics = "${spring.kafka.topics.chat}", brokerProperties = {"listeners=PLAINTEXT://localhost:9092"}, ports = 9092)
+@EmbeddedKafka(partitions = 1, topics = "${spring.kafka.topics.chat}", brokerProperties = {"listeners=PLAINTEXT://localhost:9093"}, ports = 9093)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ChatConsumerTestUsingTestConfiguration {
     @Value("${spring.kafka.topics.chat}")

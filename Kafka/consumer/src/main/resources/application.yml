@@ -30,5 +30,5 @@ kafka:
       bootstrap-servers: localhost:9092
       topic: example
       group-id: example-1
-      auto-offset-reset: earliest
+      auto-offset-reset: latest
 

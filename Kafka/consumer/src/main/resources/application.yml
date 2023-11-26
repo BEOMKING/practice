@@ -13,3 +13,22 @@ spring:
       enabled: true
     topics:
       chat: chat,conversation
+
+kafka:
+  consumers:
+    user:
+      bootstrap-servers: localhost:9092
+      topic: user
+      group-id: user-1
+      auto-offset-reset: earliest
+    order:
+      bootstrap-servers: localhost:9092
+      topic: order
+      group-id: order-1
+      auto-offset-reset: earliest
+    example:
+      bootstrap-servers: localhost:9092
+      topic: example
+      group-id: example-1
+      auto-offset-reset: earliest
+

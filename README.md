@@ -15,6 +15,7 @@
 - [카프카 프로듀서 구현](https://github.com/BEOMKING/Study/blob/main/Kafka/3.%20카프카%20프로듀서%20구현.md)
 - [카프카 컨슈머 구현](https://github.com/BEOMKING/Study/blob/main/Kafka/4.%20카프카%20컨슈머%20구현.md)
 - [멀티 컨슈머 구현](https://github.com/BEOMKING/Study/blob/main/Kafka/6.%20멀티%20컨슈머%20구현.md)
+- [번외. auto.commit.reset 알아보기](https://github.com/BEOMKING/Study/blob/main/Kafka/번외.%20auto.commit.reset%20알아보기.md)
 
 ## Book
 - [필독! 개발자 온보딩 가이드](http://github.com/BEOMKING/PersonalStudy/blob/main/Book/필독!%20개발자%20온보딩%20가이드.md)

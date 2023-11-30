@@ -10,6 +10,8 @@ spring:
     driver-class-name: org.postgresql.Driver
   kafka:
     consumer:
+      properties:
+        max.poll.interval.ms: 3600000
       enabled: true
     topics:
       chat: chat,conversation
@@ -31,4 +33,6 @@ kafka:
       topic: example
       group-id: example-1
       auto-offset-reset: latest
+      properties:
+        max.poll.interval.ms: 3600000
 

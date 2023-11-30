@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class ExampleConsumer {
     @KafkaListener(
             topics = "${kafka.consumers.example.topic}",
-            groupId = "${kafka.consumers.example.group-id}",
             containerFactory = "exampleKafkaListenerContainerFactory"
     )
     public void consume(final String message, final ConsumerRecordMetadata metadata) {

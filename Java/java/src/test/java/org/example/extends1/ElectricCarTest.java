@@ -1,5 +1,6 @@
 package org.example.extends1;
 
+import org.example.extends1.car.ElectricCar;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

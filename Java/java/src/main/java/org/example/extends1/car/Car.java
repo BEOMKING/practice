@@ -1,4 +1,4 @@
-package org.example.extends1;
+package org.example.extends1.car;
 
 public class Car {
     public String move() {

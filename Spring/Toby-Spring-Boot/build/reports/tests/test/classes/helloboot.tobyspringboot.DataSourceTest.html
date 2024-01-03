@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - DataSourceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>DataSourceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/helloboot.tobyspringboot.html">helloboot.tobyspringboot</a> &gt; DataSourceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.513s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">connect()</td>
+<td class="success">0.513s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>00:53:43.824 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.jdbc.JdbcTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [DataSourceTest]: using SpringBootContextLoader
+00:53:43.826 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [helloboot.tobyspringboot.DataSourceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+00:53:43.827 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [helloboot.tobyspringboot.DataSourceTest]: DataSourceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:53:43.878 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.jdbc.JdbcTestContextBootstrapper - Using ContextCustomizers for test class [DataSourceTest]: [DisableAutoConfigurationContextCustomizer, DisableObservabilityContextCustomizer, TypeExcludeFiltersContextCustomizer, PropertyMappingContextCustomizer, Customizer, ImportsContextCustomizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer]
+00:53:43.978 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/qjawlsqjacks/Projects/Toby-Spring-Boot/build/classes/java/main/helloboot/tobyspringboot/TobySpringBootApplication.class]
+00:53:43.980 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration helloboot.tobyspringboot.TobySpringBootApplication for test class helloboot.tobyspringboot.DataSourceTest
+00:53:44.000 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.jdbc.JdbcTestContextBootstrapper - Using TestExecutionListeners for test class [DataSourceTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+00:53:44.001 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [DataSourceTest], class annotated with @DirtiesContext [false] with mode [null]
+00:53:44.005 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test class helloboot.tobyspringboot.DataSourceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.0)
+
+2023-02-14T00:53:44.375+09:00  INFO 19865 --- [    Test worker] h.tobyspringboot.DataSourceTest          : Starting DataSourceTest using Java 17.0.4.1 with PID 19865 (started by qjawlsqjacks in /Users/qjawlsqjacks/Projects/Toby-Spring-Boot)
+2023-02-14T00:53:44.377+09:00  INFO 19865 --- [    Test worker] h.tobyspringboot.DataSourceTest          : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-02-14T00:53:44.865+09:00  INFO 19865 --- [    Test worker] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2023-02-14T00:53:44.996+09:00  INFO 19865 --- [    Test worker] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:4103ded9-f431-4db6-91f9-ca469b8347ec;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2023-02-14T00:53:45.470+09:00  INFO 19865 --- [    Test worker] h.tobyspringboot.DataSourceTest          : Started DataSourceTest in 1.427 seconds (process running for 3.675)
+org.springframework.boot.autoconfigure.cache.NoOpCacheConfiguration
+	Cache org.springframework.boot.autoconfigure.cache.NoOpCacheConfiguration NONE cache type
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+	@ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType'
+	@ConditionalOnMissingBean (types: io.r2dbc.spi.ConnectionFactory; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration$PooledDataSourceConfiguration
+	AnyNestedCondition 1 matched 1 did not; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.PooledDataSourceAvailable PooledDataSource found supported DataSource; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.ExplicitType @ConditionalOnProperty (spring.datasource.type) did not find property 'type'
+	@ConditionalOnMissingBean (types: javax.sql.DataSource,javax.sql.XADataSource; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari
+	@ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource'
+	@ConditionalOnProperty (spring.datasource.type=com.zaxxer.hikari.HikariDataSource) matched
+	@ConditionalOnMissingBean (types: javax.sql.DataSource; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+	@ConditionalOnClass found required classes 'org.springframework.jdbc.core.JdbcTemplate', 'org.springframework.transaction.TransactionManager'
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration$JdbcTransactionManagerConfiguration
+	@ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource'
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration$JdbcTransactionManagerConfiguration#transactionManager
+	@ConditionalOnMissingBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration
+	@ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.core.JdbcTemplate'
+	@ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource'
+
+org.springframework.boot.autoconfigure.jdbc.JdbcTemplateConfiguration
+	@ConditionalOnMissingBean (types: org.springframework.jdbc.core.JdbcOperations; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.NamedParameterJdbcTemplateConfiguration
+	@ConditionalOnSingleCandidate (types: org.springframework.jdbc.core.JdbcTemplate; SearchStrategy: all) found a single bean 'jdbcTemplate'; @ConditionalOnMissingBean (types: org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration
+	@ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource'
+
+org.springframework.boot.autoconfigure.sql.init.DataSourceInitializationConfiguration
+	@ConditionalOnClass found required class 'org.springframework.jdbc.datasource.init.DatabasePopulator'
+	@ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource'; @ConditionalOnMissingBean (types: org.springframework.boot.autoconfigure.sql.init.SqlDataSourceScriptDatabaseInitializer,org.springframework.boot.autoconfigure.sql.init.SqlR2dbcScriptDatabaseInitializer; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration
+	@ConditionalOnProperty (spring.sql.init.enabled) matched
+	NoneNestedConditions 0 matched 1 did not; NestedCondition on SqlInitializationAutoConfiguration.SqlInitializationModeCondition.ModeIsNever @ConditionalOnProperty (spring.sql.init.mode=never) did not find property 'mode'
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration
+	@ConditionalOnClass found required class 'org.springframework.transaction.PlatformTransactionManager'
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration#platformTransactionManagerCustomizers
+	@ConditionalOnMissingBean (types: org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$EnableTransactionManagementConfiguration
+	@ConditionalOnBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) found bean 'transactionManager'; @ConditionalOnMissingBean (types: org.springframework.transaction.annotation.AbstractTransactionManagementConfiguration; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$EnableTransactionManagementConfiguration$CglibAutoProxyConfiguration
+	@ConditionalOnProperty (spring.aop.proxy-target-class=true) matched
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$TransactionTemplateConfiguration
+	@ConditionalOnSingleCandidate (types: org.springframework.transaction.PlatformTransactionManager; SearchStrategy: all) found a single bean 'transactionManager'
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$TransactionTemplateConfiguration#transactionTemplate
+	@ConditionalOnMissingBean (types: org.springframework.transaction.support.TransactionOperations; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.test.autoconfigure.jdbc.TestDatabaseAutoConfiguration#embeddedDataSourceBeanFactoryPostProcessor
+	@ConditionalOnProperty (spring.test.database.replace=ANY) matched
+
+20
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.6</a> at 2023. 2. 14. 오전 12:53:49</p>
+</div>
+</div>
+</body>
+</html>

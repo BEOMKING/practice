@@ -1,0 +1,36 @@
+= REST API Guide
+박범진;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+[[Overview]]
+= 개요
+
+[[Overview-HTTP-Verbs]]
+== HTTP 동사
+
+본 REST API에서 사용하는 HTTP 동사(Verbs)는 가능한 표준 HTTP와 REST 규약을 따릅니다.
+
+|===
+|HTTP 동사 |설명
+
+|GET
+|서버에서 리소스를 가져옵니다.
+
+|POST
+|서버에 리소스를 생성합니다.
+
+|PUT
+|서버에 리소스를 업데이트합니다.
+
+|DELETE
+|서버에서 리소스를 삭제합니다.
+
+|PATCH
+|서버에 리소스를 부분적으로 업데이트합니다.
+|===
+include::Event-API.adoc[]

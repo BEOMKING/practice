@@ -1,0 +1,14 @@
+[[Event-API]]
+= 이벤트 API
+
+[[Event-생성]]
+=== 이벤트 생성
+operation::create-event[snippets='http-request,http-response,request-headers,request-body,request-fields,response-headers,response-body,response-fields']
+
+[[Event-목록조회]]
+=== 이벤트 목록조회
+operation::query-events[snippets='http-request,http-response,query-parameters,response-body,response-fields']
+
+[[Event-상세조회]]
+=== 이벤트 상세조회
+operation::query-event[snippets='http-request,http-response,response-body,response-fields']

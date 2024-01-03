@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="helloboot.study.ConditionalOnMissingBeanTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-13T15:53:42" hostname="bjp-Macmini.local" time="0.686">
+  <properties/>
+  <testcase name="test()" classname="helloboot.study.ConditionalOnMissingBeanTest" time="0.686"/>
+  <system-out><![CDATA[00:53:43.155 [Test worker] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@20f5281c
+00:53:43.176 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+00:53:43.256 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Overriding bean definition for bean 'exampleClass' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=conditionalOnMissingBeanTest.ExampleConfiguration; factoryMethodName=exampleClass; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in helloboot.study.ConditionalOnMissingBeanTest$ExampleConfiguration] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=conditionalOnMissingBeanTest.ExampleConfiguration2; factoryMethodName=exampleClass; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in helloboot.study.ConditionalOnMissingBeanTest$ExampleConfiguration2]
+00:53:43.421 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
+00:53:43.424 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
+00:53:43.427 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+00:53:43.430 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+00:53:43.438 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'conditionalOnMissingBeanTest.ExampleConfiguration'
+00:53:43.447 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'conditionalOnMissingBeanTest.ExampleConfiguration2'
+00:53:43.448 [Test worker] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'exampleClass'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

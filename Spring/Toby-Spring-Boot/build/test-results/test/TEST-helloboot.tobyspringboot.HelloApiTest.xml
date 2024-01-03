@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="helloboot.tobyspringboot.HelloApiTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-13T15:53:47" hostname="bjp-Macmini.local" time="0.434">
+  <properties/>
+  <testcase name="helloApi()" classname="helloboot.tobyspringboot.HelloApiTest" time="0.434"/>
+  <system-out><![CDATA[2023-02-14T00:53:46.037+09:00  INFO 19865 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [helloboot.tobyspringboot.HelloApiTest]: HelloApiTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-02-14T00:53:46.044+09:00  INFO 19865 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration helloboot.tobyspringboot.TobySpringBootApplication for test class helloboot.tobyspringboot.HelloApiTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.0)
+
+2023-02-14T00:53:46.129+09:00  INFO 19865 --- [    Test worker] helloboot.tobyspringboot.HelloApiTest    : Starting HelloApiTest using Java 17.0.4.1 with PID 19865 (started by qjawlsqjacks in /Users/qjawlsqjacks/Projects/Toby-Spring-Boot)
+2023-02-14T00:53:46.132+09:00  INFO 19865 --- [    Test worker] helloboot.tobyspringboot.HelloApiTest    : No active profile set, falling back to 1 default profile: "default"
+2023-02-14T00:53:46.937+09:00  INFO 19865 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-14T00:53:46.952+09:00  INFO 19865 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-14T00:53:46.952+09:00  INFO 19865 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.1]
+2023-02-14T00:53:47.061+09:00  INFO 19865 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/bjp]    : Initializing Spring embedded WebApplicationContext
+2023-02-14T00:53:47.065+09:00  INFO 19865 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 922 ms
+2023-02-14T00:53:47.178+09:00  INFO 19865 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-02-14T00:53:47.195+09:00  INFO 19865 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn4: url=jdbc:h2:mem: user=SA
+2023-02-14T00:53:47.197+09:00  INFO 19865 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-02-14T00:53:47.675+09:00  INFO 19865 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path '/bjp'
+2023-02-14T00:53:47.684+09:00  INFO 19865 --- [    Test worker] helloboot.tobyspringboot.HelloApiTest    : Started HelloApiTest in 1.629 seconds (process running for 5.889)
+org.springframework.boot.autoconfigure.aop.AopAutoConfiguration
+	@ConditionalOnProperty (spring.aop.auto=true) matched
+
+org.springframework.boot.autoconfigure.aop.AopAutoConfiguration$ClassProxyingConfiguration
+	@ConditionalOnMissingClass did not find unwanted class 'org.aspectj.weaver.Advice'
+	@ConditionalOnProperty (spring.aop.proxy-target-class=true) matched
+
+org.springframework.boot.autoconfigure.cache.GenericCacheConfiguration
+	Cache org.springframework.boot.autoconfigure.cache.GenericCacheConfiguration automatic cache type
+
+org.springframework.boot.autoconfigure.cache.NoOpCacheConfiguration
+	Cache org.springframework.boot.autoconfigure.cache.NoOpCacheConfiguration automatic cache type
+
+org.springframework.boot.autoconfigure.cache.SimpleCacheConfiguration
+	Cache org.springframework.boot.autoconfigure.cache.SimpleCacheConfiguration automatic cache type
+
+org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration#defaultLifecycleProcessor
+	@ConditionalOnMissingBean (names: lifecycleProcessor; SearchStrategy: current) did not find any beans
+
+org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration#propertySourcesPlaceholderConfigurer
+	@ConditionalOnMissingBean (types: org.springframework.context.support.PropertySourcesPlaceholderConfigurer; SearchStrategy: current) did not find any beans
+
+org.springframework.boot.autoconfigure.dao.PersistenceExceptionTranslationAutoConfiguration
+	@ConditionalOnClass found required class 'org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor'
+
+org.springframework.boot.autoconfigure.dao.PersistenceExceptionTranslationAutoConfiguration#persistenceExceptionTranslationPostProcessor
+	@ConditionalOnProperty (spring.dao.exceptiontranslation.enabled) matched
+	@ConditionalOnMissingBean (types: org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration
+	@ConditionalOnClass found required class 'org.springframework.http.converter.HttpMessageConverter'
+	NoneNestedConditions 0 matched 1 did not; NestedCondition on HttpMessageConvertersAutoConfiguration.NotReactiveWebApplicationCondition.ReactiveWebApplication did not find reactive web application classes
+
+org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration#messageConverters
+	@ConditionalOnMissingBean (types: org.springframework.boot.autoconfigure.http.HttpMessageConverters; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration$StringHttpMessageConverterConfiguration
+	@ConditionalOnClass found required class 'org.springframework.http.converter.StringHttpMessageConverter'
+
+org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration$StringHttpMessageConverterConfiguration#stringHttpMessageConverter
+	@ConditionalOnMissingBean (types: org.springframework.http.converter.StringHttpMessageConverter; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.http.JacksonHttpMessageConvertersConfiguration$MappingJackson2HttpMessageConverterConfiguration
+	@ConditionalOnClass found required class 'com.fasterxml.jackson.databind.ObjectMapper'
+	@ConditionalOnProperty (spring.mvc.converters.preferred-json-mapper=jackson) matched
+	@ConditionalOnBean (types: com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) found bean 'jacksonObjectMapper'
+
+org.springframework.boot.autoconfigure.http.JacksonHttpMessageConvertersConfiguration$MappingJackson2HttpMessageConverterConfiguration#mappingJackson2HttpMessageConverter
+	@ConditionalOnMissingBean (types: org.springframework.http.converter.json.MappingJackson2HttpMessageConverter ignored: org.springframework.hateoas.server.mvc.TypeConstrainedMappingJackson2HttpMessageConverter,org.springframework.data.rest.webmvc.alps.AlpsJsonHttpMessageConverter; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
+	@ConditionalOnClass found required class 'com.fasterxml.jackson.databind.ObjectMapper'
+
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration
+	@ConditionalOnClass found required class 'org.springframework.http.converter.json.Jackson2ObjectMapperBuilder'
+
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperBuilderConfiguration
+	@ConditionalOnClass found required class 'org.springframework.http.converter.json.Jackson2ObjectMapperBuilder'
+
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperBuilderConfiguration#jacksonObjectMapperBuilder
+	@ConditionalOnMissingBean (types: org.springframework.http.converter.json.Jackson2ObjectMapperBuilder; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperConfiguration
+	@ConditionalOnClass found required class 'org.springframework.http.converter.json.Jackson2ObjectMapperBuilder'
+
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperConfiguration#jacksonObjectMapper
+	@ConditionalOnMissingBean (types: com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$ParameterNamesModuleConfiguration
+	@ConditionalOnClass found required class 'com.fasterxml.jackson.module.paramnames.ParameterNamesModule'
+
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$ParameterNamesModuleConfiguration#parameterNamesModule
+	@ConditionalOnMissingBean (types: com.fasterxml.jackson.module.paramnames.ParameterNamesModule; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+	@ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType'
+	@ConditionalOnMissingBean (types: io.r2dbc.spi.ConnectionFactory; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration$PooledDataSourceConfiguration
+	AnyNestedCondition 1 matched 1 did not; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.PooledDataSourceAvailable PooledDataSource found supported DataSource; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.ExplicitType @ConditionalOnProperty (spring.datasource.type) did not find property 'type'
+	@ConditionalOnMissingBean (types: javax.sql.DataSource,javax.sql.XADataSource; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari
+	@ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource'
+	@ConditionalOnProperty (spring.datasource.type=com.zaxxer.hikari.HikariDataSource) matched
+	@ConditionalOnMissingBean (types: javax.sql.DataSource; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+	@ConditionalOnClass found required classes 'org.springframework.jdbc.core.JdbcTemplate', 'org.springframework.transaction.TransactionManager'
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration$JdbcTransactionManagerConfiguration
+	@ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource'
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration$JdbcTransactionManagerConfiguration#transactionManager
+	@ConditionalOnMissingBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration
+	@ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.core.JdbcTemplate'
+	@ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource'
+
+org.springframework.boot.autoconfigure.jdbc.JdbcTemplateConfiguration
+	@ConditionalOnMissingBean (types: org.springframework.jdbc.core.JdbcOperations; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.NamedParameterJdbcTemplateConfiguration
+	@ConditionalOnSingleCandidate (types: org.springframework.jdbc.core.JdbcTemplate; SearchStrategy: all) found a single bean 'jdbcTemplate'; @ConditionalOnMissingBean (types: org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration
+	@ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource'
+
+org.springframework.boot.autoconfigure.sql.init.DataSourceInitializationConfiguration
+	@ConditionalOnClass found required class 'org.springframework.jdbc.datasource.init.DatabasePopulator'
+	@ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource'; @ConditionalOnMissingBean (types: org.springframework.boot.autoconfigure.sql.init.SqlDataSourceScriptDatabaseInitializer,org.springframework.boot.autoconfigure.sql.init.SqlR2dbcScriptDatabaseInitializer; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration
+	@ConditionalOnProperty (spring.sql.init.enabled) matched
+	NoneNestedConditions 0 matched 1 did not; NestedCondition on SqlInitializationAutoConfiguration.SqlInitializationModeCondition.ModeIsNever @ConditionalOnProperty (spring.sql.init.mode=never) did not find property 'mode'
+
+org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
+	@ConditionalOnClass found required class 'org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor'
+
+org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration#applicationTaskExecutor
+	@ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration#taskExecutorBuilder
+	@ConditionalOnMissingBean (types: org.springframework.boot.task.TaskExecutorBuilder; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
+	@ConditionalOnClass found required class 'org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler'
+
+org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration#taskSchedulerBuilder
+	@ConditionalOnMissingBean (types: org.springframework.boot.task.TaskSchedulerBuilder; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration
+	@ConditionalOnClass found required class 'org.springframework.transaction.PlatformTransactionManager'
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration#platformTransactionManagerCustomizers
+	@ConditionalOnMissingBean (types: org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$EnableTransactionManagementConfiguration
+	@ConditionalOnBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) found bean 'transactionManager'; @ConditionalOnMissingBean (types: org.springframework.transaction.annotation.AbstractTransactionManagementConfiguration; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$EnableTransactionManagementConfiguration$CglibAutoProxyConfiguration
+	@ConditionalOnProperty (spring.aop.proxy-target-class=true) matched
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$TransactionTemplateConfiguration
+	@ConditionalOnSingleCandidate (types: org.springframework.transaction.PlatformTransactionManager; SearchStrategy: all) found a single bean 'transactionManager'
+
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$TransactionTemplateConfiguration#transactionTemplate
+	@ConditionalOnMissingBean (types: org.springframework.transaction.support.TransactionOperations; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration
+	@ConditionalOnClass found required class 'org.springframework.web.client.RestTemplate'
+	NoneNestedConditions 0 matched 1 did not; NestedCondition on RestTemplateAutoConfiguration.NotReactiveWebApplicationCondition.ReactiveWebApplication did not find reactive web application classes
+
+org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration#restTemplateBuilder
+	@ConditionalOnMissingBean (types: org.springframework.boot.web.client.RestTemplateBuilder; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration#restTemplateBuilderConfigurer
+	@ConditionalOnMissingBean (types: org.springframework.boot.autoconfigure.web.client.RestTemplateBuilderConfigurer; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration
+	@ConditionalOnWebApplication (required) found 'session' scope
+
+org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration$TomcatWebServerFactoryCustomizerConfiguration
+	@ConditionalOnClass found required classes 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol'
+
+org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration
+	@ConditionalOnClass found required class 'org.springframework.web.servlet.DispatcherServlet'
+	found 'session' scope
+
+org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration$DispatcherServletConfiguration
+	@ConditionalOnClass found required class 'jakarta.servlet.ServletRegistration'
+	Default DispatcherServlet did not find dispatcher servlet beans
+
+org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration$DispatcherServletRegistrationConfiguration
+	@ConditionalOnClass found required class 'jakarta.servlet.ServletRegistration'
+	DispatcherServlet Registration did not find servlet registration bean
+
+org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration$DispatcherServletRegistrationConfiguration#dispatcherServletRegistration
+	@ConditionalOnBean (names: dispatcherServlet types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) found bean 'dispatcherServlet'
+
+org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration
+	@ConditionalOnClass found required class 'org.springframework.web.filter.CharacterEncodingFilter'
+	found 'session' scope
+	@ConditionalOnProperty (server.servlet.encoding.enabled) matched
+
+org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration#characterEncodingFilter
+	@ConditionalOnMissingBean (types: org.springframework.web.filter.CharacterEncodingFilter; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration
+	@ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.multipart.support.StandardServletMultipartResolver', 'jakarta.servlet.MultipartConfigElement'
+	found 'session' scope
+	@ConditionalOnProperty (spring.servlet.multipart.enabled) matched
+
+org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration#multipartConfigElement
+	@ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration#multipartResolver
+	@ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration
+	@ConditionalOnClass found required class 'jakarta.servlet.ServletRequest'
+	found 'session' scope
+
+org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration#tomcatServletWebServerFactoryCustomizer
+	@ConditionalOnClass found required class 'org.apache.catalina.startup.Tomcat'
+
+org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryConfiguration$EmbeddedTomcat
+	@ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol'
+	@ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.server.ServletWebServerFactory; SearchStrategy: current) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
+	@ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet', 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer'
+	found 'session' scope
+	@ConditionalOnMissingBean (types: org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration#formContentFilter
+	@ConditionalOnProperty (spring.mvc.formcontent.filter.enabled) matched
+	@ConditionalOnMissingBean (types: org.springframework.web.filter.FormContentFilter; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration#flashMapManager
+	@ConditionalOnMissingBean (names: flashMapManager; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration#localeResolver
+	@ConditionalOnMissingBean (names: localeResolver; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration#themeResolver
+	@ConditionalOnMissingBean (names: themeResolver; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter#defaultViewResolver
+	@ConditionalOnMissingBean (types: org.springframework.web.servlet.view.InternalResourceViewResolver; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter#requestContextFilter
+	@ConditionalOnMissingBean (types: org.springframework.web.context.request.RequestContextListener,org.springframework.web.filter.RequestContextFilter; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter#viewResolver
+	@ConditionalOnBean (types: org.springframework.web.servlet.ViewResolver; SearchStrategy: all) found beans 'defaultViewResolver', 'beanNameViewResolver', 'mvcViewResolver'; @ConditionalOnMissingBean (names: viewResolver types: org.springframework.web.servlet.view.ContentNegotiatingViewResolver; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
+	@ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet'
+	found 'session' scope
+
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration#basicErrorController
+	@ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.error.ErrorController; SearchStrategy: current) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration#errorAttributes
+	@ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.error.ErrorAttributes; SearchStrategy: current) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration$DefaultErrorViewResolverConfiguration#conventionErrorViewResolver
+	@ConditionalOnBean (types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) found bean 'dispatcherServlet'; @ConditionalOnMissingBean (types: org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration
+	@ConditionalOnProperty (server.error.whitelabel.enabled) matched
+	ErrorTemplate Missing did not find error template view
+
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration#beanNameViewResolver
+	@ConditionalOnMissingBean (types: org.springframework.web.servlet.view.BeanNameViewResolver; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration#defaultErrorView
+	@ConditionalOnMissingBean (names: error; SearchStrategy: all) did not find any beans
+
+org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration
+	@ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'jakarta.websocket.server.ServerContainer'
+	found 'session' scope
+
+org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration$TomcatWebSocketConfiguration
+	@ConditionalOnClass found required classes 'org.apache.catalina.startup.Tomcat', 'org.apache.tomcat.websocket.server.WsSci'
+
+org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration$TomcatWebSocketConfiguration#websocketServletWebServerCustomizer
+	@ConditionalOnMissingBean (names: websocketServletWebServerCustomizer; SearchStrategy: all) did not find any beans
+
+81
+2023-02-14T00:53:47.959+09:00  INFO 19865 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/bjp]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-02-14T00:53:47.967+09:00  INFO 19865 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-02-14T00:53:47.975+09:00  INFO 19865 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

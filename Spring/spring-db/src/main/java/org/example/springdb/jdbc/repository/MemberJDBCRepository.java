@@ -75,6 +75,24 @@ public class MemberJDBCRepository {
         }
     }
 
+    public int delete(final String memberId) throws SQLException {
+        final String sql = "DELETE FROM member WHERE member_id = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DBConnectionUtil.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, memberId);
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            log.error("delete error", e);
+            throw e;
+        } finally {
+            close(connection, preparedStatement, null);
+        }
+    }
+
     private void close(final Connection connection, final PreparedStatement preparedStatement, final ResultSet resultSet) {
         try {
             if (resultSet != null) {

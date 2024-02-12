@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.NoSuchElementException;
 
 @Slf4j
 public class MemberJDBCRepository {
@@ -28,6 +29,30 @@ public class MemberJDBCRepository {
             throw e;
         } finally {
             close(connection, preparedStatement, null);
+        }
+    }
+
+    public Member findById(final String memberId) throws SQLException {
+        final String sql = "SELECT * FROM member WHERE member_id = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DBConnectionUtil.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, memberId);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return new Member(resultSet.getString("member_id"), resultSet.getInt("money"));
+            }
+
+            throw new NoSuchElementException("No such member with memberId: " + memberId);
+        } catch (Exception e) {
+            log.error("findById error", e);
+            throw e;
+        } finally {
+            close(connection, preparedStatement, resultSet);
         }
     }
 

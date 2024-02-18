@@ -23,25 +23,10 @@ class ConnectionTest {
     }
 
     @Test
-    void getDataSourceDriverManager() throws SQLException {
-        final DataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-        userDataSource(dataSource);
-    }
-
-    private void userDataSource(DataSource dataSource) throws SQLException {
-        final Connection connection1 = dataSource.getConnection();
-        final Connection connection2 = dataSource.getConnection();
-        System.out.println("connection1 = " + connection1);
-        System.out.println("connection1 = " + connection1.getClass());
-        System.out.println("connection2 = " + connection2);
-        System.out.println("connection2 = " + connection2.getClass());
-    }
-
-    @Test
     void getDataSourceDriverManagerMax() throws SQLException {
         final DataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             final Connection connection = dataSource.getConnection();
             System.out.println("connection = " + connection);
             System.out.println("connection = " + connection.getClass());

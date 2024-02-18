@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
 @Slf4j
-public class MemberJDBCRepository {
+public class MemberJDBCDriverManagerRepository implements MemberRepository {
     public Member save(final Member member) throws SQLException {
         final String sql = "INSERT INTO member (member_id, money) VALUES (?, ?)";
         Connection connection = null;

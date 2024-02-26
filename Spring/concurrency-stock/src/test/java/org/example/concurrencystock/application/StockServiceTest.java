@@ -22,11 +22,6 @@ class StockServiceTest {
     @Autowired
     private StockRepository stockRepository;
 
-    @BeforeEach
-    void setUp() {
-        stockRepository.saveAndFlush(new Stock(1L, 100L));
-    }
-
     @AfterEach
     void tearDown() {
         stockRepository.deleteAll();
@@ -34,14 +29,16 @@ class StockServiceTest {
 
     @Test
     void decrease() {
-        stockService.decrease(1L, 1L);
-        Stock stock = stockRepository.findById(1L).orElseThrow();
+        stockRepository.saveAndFlush(new Stock(1L, 100L));
+        stockService.decrease(2L, 1L);
+        Stock stock = stockRepository.findById(2L).orElseThrow();
 
         assertThat(stock.getQuantity()).isEqualTo(99L);
     }
 
     @Test
     void concurrentDecrease() throws InterruptedException {
+        stockRepository.saveAndFlush(new Stock(1L, 100L));
         final ExecutorService executorService = Executors.newFixedThreadPool(32);
 
         for (int i = 0; i < 100; i++) {

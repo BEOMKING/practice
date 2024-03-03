@@ -8,6 +8,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
+    hikari:
+      maximum-pool-size: 40
 logging:
   level:
     org:

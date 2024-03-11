@@ -27,7 +27,6 @@ public class ConnectionPoolTest {
         for (int i = 0; i < count; i++) {
             final Connection connection = dataSource.getConnection();
             System.out.println("connection = " + connection);
-            System.out.println("connection = " + connection.getClass());
         }
     }
 }

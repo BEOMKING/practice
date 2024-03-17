@@ -2,18 +2,15 @@ package org.example.springdb.jdbc.application;
 
 import org.example.springdb.jdbc.domain.Member;
 import org.example.springdb.jdbc.repository.MemberRepository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.transaction.support.DefaultTransactionStatus;
 
 import java.sql.SQLException;
 
 /**
  * V2: 트랜잭션 있는 서비스
  */
-@Service
 public class MemberTransactionService implements MemberService {
 
     private final PlatformTransactionManager transactionManager;

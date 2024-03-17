@@ -2,7 +2,6 @@ package org.example.springdb.jdbc.application;
 
 import org.example.springdb.jdbc.domain.Member;
 import org.example.springdb.jdbc.repository.MemberRepository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -11,7 +10,6 @@ import java.sql.SQLException;
 /**
  * V3: 트랜잭션 템플릿을 사용한 서비스
  */
-@Service
 public class MemberTransactionTemplateService implements MemberService {
 
     private final TransactionTemplate transactionTemplate;

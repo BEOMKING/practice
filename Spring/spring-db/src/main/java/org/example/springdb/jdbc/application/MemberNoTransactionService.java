@@ -2,16 +2,17 @@ package org.example.springdb.jdbc.application;
 
 import org.example.springdb.jdbc.domain.Member;
 import org.example.springdb.jdbc.repository.MemberRepository;
-import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 
-@Service
-public class MemberServiceV1 implements MemberService {
+/**
+ * V1: 트랜잭션 없는 서비스
+ */
+public class MemberNoTransactionService implements MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberServiceV1(MemberRepository memberRepository) {
+    public MemberNoTransactionService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 

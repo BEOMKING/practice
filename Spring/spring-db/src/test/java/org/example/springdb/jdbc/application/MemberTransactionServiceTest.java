@@ -2,11 +2,13 @@ package org.example.springdb.jdbc.application;
 
 import org.example.springdb.jdbc.domain.Member;
 import org.example.springdb.jdbc.repository.MemberJDBCDataSourceRepository;
+import org.example.springdb.jdbc.repository.MemberJDBCDataSourceTransactionRepository;
 import org.example.springdb.jdbc.repository.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.sql.SQLException;
@@ -15,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.example.springdb.jdbc.connection.ConnectionConst.*;
 
-class MemberServiceV1Test {
+class MemberTransactionServiceTest {
 
     private MemberService memberService;
     private MemberRepository memberRepository;
@@ -23,8 +25,8 @@ class MemberServiceV1Test {
     @BeforeEach
     void setUp() {
         final DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-        memberRepository = new MemberJDBCDataSourceRepository(driverManagerDataSource);
-        memberService = new MemberServiceV1(memberRepository);
+        memberRepository = new MemberJDBCDataSourceTransactionRepository(driverManagerDataSource);
+        memberService = new MemberTransactionService(new DataSourceTransactionManager(driverManagerDataSource), memberRepository);
     }
 
     @AfterEach

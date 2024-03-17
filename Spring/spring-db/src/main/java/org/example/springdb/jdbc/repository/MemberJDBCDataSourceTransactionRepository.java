@@ -1,9 +1,10 @@
 package org.example.springdb.jdbc.repository;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.springdb.jdbc.connection.DBConnectionUtil;
 import org.example.springdb.jdbc.domain.Member;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
@@ -14,18 +15,20 @@ import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
 /**
- * V2: DataSource를 사용하는 리포지토리
+ * V3: 트랜잭션 있는 서비스 + 트랜잭션 있는 리포지토리
  */
 @Slf4j
-public class MemberJDBCDataSourceRepository implements MemberRepository {
+@Repository
+public class MemberJDBCDataSourceTransactionRepository implements MemberRepository {
     private final DataSource dataSource;
 
-    public MemberJDBCDataSourceRepository(final DataSource dataSource) {
+    public MemberJDBCDataSourceTransactionRepository(final DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Override
     public Member save(final Member member) throws SQLException {
+        log.info("save");
         final String sql = "INSERT INTO member (member_id, money) VALUES (?, ?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -47,6 +50,7 @@ public class MemberJDBCDataSourceRepository implements MemberRepository {
 
     @Override
     public Member findById(final String memberId) throws SQLException {
+        log.info("findById");
         final String sql = "SELECT * FROM member WHERE member_id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -72,6 +76,7 @@ public class MemberJDBCDataSourceRepository implements MemberRepository {
 
     @Override
     public int update(final String memberId, final int money) throws SQLException {
+        log.info("update");
         final String sql = "UPDATE member SET money = ? WHERE member_id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -112,11 +117,11 @@ public class MemberJDBCDataSourceRepository implements MemberRepository {
     private void close(final Connection connection, final PreparedStatement preparedStatement, final ResultSet resultSet) {
         JdbcUtils.closeResultSet(resultSet);
         JdbcUtils.closeStatement(preparedStatement);
-        JdbcUtils.closeConnection(connection);
+        DataSourceUtils.releaseConnection(connection, dataSource);
     }
 
     private Connection getConnection() throws SQLException {
-        final Connection connection = dataSource.getConnection();
+        final Connection connection = DataSourceUtils.getConnection(dataSource);
         log.info("Connection: {}", connection);
         return connection;
     }

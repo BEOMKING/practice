@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
+/**
+ * V1: DriverManager를 사용하는 리포지토리
+ */
 @Slf4j
 public class MemberJDBCDriverManagerRepository implements MemberRepository {
     public Member save(final Member member) throws SQLException {

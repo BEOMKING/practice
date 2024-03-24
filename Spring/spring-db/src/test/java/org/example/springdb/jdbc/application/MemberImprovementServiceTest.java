@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
@@ -97,5 +99,16 @@ class MemberImprovementServiceTest {
         log.info("memberService: {}", memberService.getClass());
         log.info("memberRepository: {}", memberRepository.getClass());
         assertThat(AopUtils.isAopProxy(memberService)).isTrue();
+    }
+    
+    @Test
+    void duplicateKey() {
+        memberRepository.delete("test");
+        Member member = new Member("test", 1000);
+        memberRepository.save(member);
+
+        assertThatThrownBy(() -> memberRepository.save(member))
+                .isInstanceOf(DataAccessException.class)
+                .isInstanceOf(DuplicateKeyException.class);
     }
 }

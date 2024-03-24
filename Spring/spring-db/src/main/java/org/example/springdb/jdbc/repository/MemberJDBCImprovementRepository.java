@@ -7,7 +7,6 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -17,10 +16,9 @@ import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
 /**
- * V4: 예외 처리 개선한 최종 버전
+ * V4: 예외 처리 개선한 버전
  */
 @Slf4j
-@Repository
 public class MemberJDBCImprovementRepository implements MemberImprovementRepository {
     private final DataSource dataSource;
     private final SQLExceptionTranslator sqlExceptionTranslator;

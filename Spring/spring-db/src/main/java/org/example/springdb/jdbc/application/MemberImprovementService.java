@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * V4: 트랜잭션 AOP을 사용한 서비스
+ * V5: 예외 처리 개선한 최종 버전
  */
 @Service
 public class MemberImprovementService {

@@ -5,6 +5,8 @@ import org.example.springdb.jdbc.domain.Member;
 import org.example.springdb.jdbc.repository.exception.MyDbException;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
+import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -21,9 +23,11 @@ import java.util.NoSuchElementException;
 @Repository
 public class MemberJDBCImprovementRepository implements MemberImprovementRepository {
     private final DataSource dataSource;
+    private final SQLExceptionTranslator sqlExceptionTranslator;
 
     public MemberJDBCImprovementRepository(final DataSource dataSource) {
         this.dataSource = dataSource;
+        this.sqlExceptionTranslator = new SQLErrorCodeSQLExceptionTranslator(dataSource);
     }
 
     @Override
@@ -41,7 +45,7 @@ public class MemberJDBCImprovementRepository implements MemberImprovementReposit
             preparedStatement.executeUpdate();
             return member;
         } catch (SQLException e) {
-            throw new MyDbException(e);
+            throw sqlExceptionTranslator.translate("save", sql, e);
         } finally {
             close(connection, preparedStatement, null);
         }

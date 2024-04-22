@@ -15,6 +15,6 @@ public class CommandSender {
     }
 
     public void sendCommand(String message) {
-        rabbitTemplate.convertAndSend("topicExchange", "command.send", message);
+        rabbitTemplate.convertAndSend("request", "command.send", message);
     }
 }

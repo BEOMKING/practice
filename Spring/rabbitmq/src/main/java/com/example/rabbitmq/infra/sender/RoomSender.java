@@ -15,6 +15,6 @@ public class RoomSender {
     }
 
     public void sendRoom(String message) {
-        rabbitTemplate.convertAndSend("topicExchange", "chat.*.room.send", message);
+        rabbitTemplate.convertAndSend("request", "chat.*.room.send", message);
     }
 }

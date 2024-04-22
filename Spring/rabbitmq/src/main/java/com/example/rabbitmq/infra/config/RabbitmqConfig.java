@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitmqConfig {
 
+    public static final String REQUEST_EXCHANGE = "request";
+
     @Bean
     public TopicExchange topicExchange() {
-        return new TopicExchange("topicExchange");
+        return new TopicExchange(REQUEST_EXCHANGE);
     }
 
     @Bean

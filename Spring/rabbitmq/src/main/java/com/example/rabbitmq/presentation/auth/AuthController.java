@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -58,38 +56,20 @@ public class AuthController {
 
     @PostMapping("/resource")
     public String postResource(ResourcePathRequest request) {
-        if (request.username().startsWith(username) && VHOST.equals(request.vhost())) {
+        if (request.username().startsWith("user") && "chat".equals(request.vhost())) {
             if ("exchange".equals(request.resource())) {
-                if (RabbitmqConfig.REQUEST_EXCHANGE.equals(request.name()) && Objects.equals("write", request.permission())) {
+                if ("request".equals(request.name())
+                        && List.of("configure", "write").contains(request.permission())) {
                     return "allow";
-                } else if ("user".equals(request.name()) && Arrays.asList("read")
-                        .stream()
-                        .anyMatch(request.permission()::equals)) {
-                    // "user" exchange 에 대해서 read 권한만 허가
+                } else if ("user".equals(request.name())
+                        && Stream.of("read").anyMatch(request.permission()::equals)) {
                     return "allow";
                 } else if ("amq.default".equals(request.name())) {
                     return "allow";
-                } else if ("chat".equals(request.name())) {
-                    return "allow";
-                } else if (request.name().startsWith("room.")) {
-                    return "allow";
-                } else if (request.name().startsWith("user.")) {
-                    return "allow";
                 }
-            } else if ("queue".equals(request.resource())) {
-                if (("user." + request.username()).equals(request.name()) && List.of(
-                        "read", "configure").contains(request.permission())) {
-                    return "allow";
-                } else if ("dead-letter".equals(request.name())) {
-                    return "allow";
-                } else if ("command".equals(request.name()) && Arrays.asList(
-                        "read").stream().anyMatch(request.permission()::equals)) {
-                    return "allow";
-                } else if ("room".equals(request.name())) {
-                    return "allow";
-                } else if (request.name().startsWith("user.")) {
-                    return "allow";
-                }
+            } else if ("queue".equals(request.resource()) && ("user." + request.username()).equals(request.name())
+                    && List.of("configure", "write", "read").contains(request.permission())) {
+                return "allow";
             }
         }
 

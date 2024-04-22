@@ -15,6 +15,6 @@ public class UserSender {
     }
 
     public void sendUser(String message) {
-        rabbitTemplate.convertAndSend("topicExchange", "chat.*.user.send", message);
+        rabbitTemplate.convertAndSend("request", "chat.*.user.send", message);
     }
 }

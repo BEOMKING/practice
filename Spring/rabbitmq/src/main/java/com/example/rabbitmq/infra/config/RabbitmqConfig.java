@@ -3,7 +3,11 @@ package com.example.rabbitmq.infra.config;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,9 +16,22 @@ public class RabbitmqConfig {
 
     public static final String REQUEST_EXCHANGE = "request";
 
+    @Value("${spring.rabbitmq.username}")
+    private String username;
+
+    @Bean
+	public RabbitAdmin amqpAdmin(ConnectionFactory connectionFactory) {
+		return new RabbitAdmin(connectionFactory);
+	}
+
     @Bean
     public TopicExchange topicExchange() {
         return new TopicExchange(REQUEST_EXCHANGE);
+    }
+
+    @Bean
+    public TopicExchange chatExchange() {
+        return new TopicExchange("chat");
     }
 
     @Bean
@@ -30,6 +47,18 @@ public class RabbitmqConfig {
     @Bean
     public Queue roomQueue() {
         return new Queue("room");
+    }
+
+    @Bean
+    public Queue deadLetterQueue() {
+        return new Queue("dead-letter");
+    }
+
+    @Bean
+    public Queue myUserQueue() {
+        return QueueBuilder.durable("user." + username)
+                .deadLetterExchange("")
+                .deadLetterRoutingKey("dead-letter").build();
     }
 
     @Bean

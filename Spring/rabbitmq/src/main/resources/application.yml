@@ -11,4 +11,5 @@ spring:
         concurrency: 5
         max-concurrency: 10
         prefetch: 5
+    virtual-host: chat
 

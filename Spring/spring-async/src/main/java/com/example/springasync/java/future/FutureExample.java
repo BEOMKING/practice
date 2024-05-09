@@ -1,4 +1,4 @@
-package com.example.springasync.future;
+package com.example.springasync.java.future;
 
 import lombok.extern.slf4j.Slf4j;
 

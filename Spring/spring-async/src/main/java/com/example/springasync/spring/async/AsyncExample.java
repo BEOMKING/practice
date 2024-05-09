@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.Future;
+import org.springframework.util.concurrent.ListenableFuture;
 
 @Slf4j
 @EnableAsync
@@ -21,11 +21,22 @@ public class AsyncExample {
     @Component
     public static class AsyncService {
         @Async
-        public Future<String> asyncMethod() throws InterruptedException {
+        public ListenableFuture<String> asyncMethod() throws InterruptedException {
             log.info("Async");
             Thread.sleep(2000L);
             return new AsyncResult<>("async result");
         }
+    }
+
+    @Bean
+    ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+        final ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+        threadPoolTaskExecutor.setCorePoolSize(10);
+        threadPoolTaskExecutor.setMaxPoolSize(100);
+        threadPoolTaskExecutor.setQueueCapacity(200);
+        threadPoolTaskExecutor.setThreadNamePrefix("myThread-");
+        threadPoolTaskExecutor.initialize();
+        return threadPoolTaskExecutor;
     }
 
     @Autowired
@@ -35,9 +46,9 @@ public class AsyncExample {
     ApplicationRunner applicationRunner() {
         return args -> {
             log.info("run");
-            final Future<String> stringFuture = asyncService.asyncMethod();
-            log.info("exit {}", stringFuture.isDone());
-            log.info("result {}", stringFuture.get());
+            final ListenableFuture<String> future = asyncService.asyncMethod();
+            future.addCallback(s -> log.info("result {}", s), e -> log.error("error", e));
+            log.info("exit");
         };
     }
 

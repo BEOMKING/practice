@@ -23,9 +23,9 @@ public class DeferredResultExample {
         private final Queue<DeferredResult<String>> results = new ConcurrentLinkedQueue<>();
 
         @GetMapping("/dr")
-        public DeferredResult<String> dr() throws InterruptedException {
+        public DeferredResult<String> dr() {
             log.info("dr");
-            DeferredResult<String> dr = new DeferredResult<>();
+            DeferredResult<String> dr = new DeferredResult<>(600000L);
             results.add(dr);
             dr.onCompletion(() -> results.remove(dr));
             return dr;

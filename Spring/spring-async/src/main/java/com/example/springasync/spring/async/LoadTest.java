@@ -15,7 +15,7 @@ public class LoadTest {
     public static void main(String[] args) throws InterruptedException {
         final ExecutorService executorService = Executors.newFixedThreadPool(100);
         final RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8080/async";
+        String url = "http://localhost:8080/dr";
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();

@@ -1,0 +1,10 @@
+GET http://localhost:8080/dr
+accept: application/json
+
+###
+GET http://localhost:8080/dr/count
+accept: application/json
+
+###
+GET http://localhost:8080/dr/event?msg=async
+accept: application/json

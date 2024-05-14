@@ -1,9 +1,11 @@
-package com.example.springasync.spring.async;
+package com.example.springasync.spring;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -12,28 +14,34 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LoadTest {
     private static final AtomicInteger counter = new AtomicInteger(0);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, BrokenBarrierException {
         final ExecutorService executorService = Executors.newFixedThreadPool(100);
         final RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8080/dr";
+        String url = "http://localhost:8080/local?idx={idx}";
 
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
+        final CyclicBarrier cyclicBarrier = new CyclicBarrier(101);
 
         for (int i = 0; i < 100; i++) {
-            executorService.execute(() -> {
+            executorService.submit(() -> {
                 int idx = counter.addAndGet(1);
+                cyclicBarrier.await();
+
                 log.info("Thread {}", idx);
 
                 StopWatch sw = new StopWatch();
                 sw.start();
 
-                restTemplate.getForObject(url, String.class);
+                final String result = restTemplate.getForObject(url, String.class, idx);
                 sw.stop();
 
-                log.info("Elapsed: {} {}", idx, sw.getTotalTimeSeconds());
+                log.info("Elapsed: {} {} {}", idx, sw.getTotalTimeSeconds(), result);
+                return null;
             });
         }
+
+        cyclicBarrier.await();
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
 
         executorService.shutdown();
         executorService.awaitTermination(100, java.util.concurrent.TimeUnit.SECONDS);
